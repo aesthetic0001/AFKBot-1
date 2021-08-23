@@ -1,0 +1,75 @@
+#header {
+  float: left;
+  height: fit-content;
+  width: 100%;
+  color: white;
+}
+
+#header h1 {
+  margin: 1%;
+  padding: 1%;
+}
+
+hr {
+  float: left;
+  width: -webkit-fill-available;
+}
+
+#buttons {
+  float: left;
+  height: fit-content;
+  width: 100%;
+}
+
+#buttons button {
+  float: left;
+  margin: 2%;
+  padding: 1% 5%;
+  color: white;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: black;
+  outline: none;
+  transition: all ease-in-out 200ms;
+}
+
+#buttons button:hover {
+  cursor: pointer;
+  color: black;
+  border: 2px solid black;
+  background-color: white;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.section {
+  float: left;
+  height: fit-content;
+  width: -webkit-fill-available;
+}
+
+.section h2, .section h3 {
+  float: left;
+  width: fit-content;
+  margin: 1%;
+  padding: 1% 5%;
+  color: white;
+}
+
+.world-info {
+  display: grid;
+  float: left;
+  height: fit-content;
+  width: fit-content;
+  margin: 1%;
+  padding: 1%;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.world-info h3 {
+  padding: 5%;
+  margin: 5%;
+}
