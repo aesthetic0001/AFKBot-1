@@ -21,13 +21,9 @@
   },
   "homepage": "https://github.com/DrMoraschi/Bot#readme",
   "dependencies": {
-    "@types/express": "^4.17.13",
-    "express": "^4.17.1",
-    "fs-extra": "^10.0.0",
     "mineflayer": "^3.11.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.12",
     "@types/node": "^16.7.1"
   }
 }
