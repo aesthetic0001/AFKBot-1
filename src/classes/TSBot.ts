@@ -3,7 +3,7 @@ import TSConfig from './TSConfig.js'
 import { error, log } from '../utils/log.js'
 
 export default class TSBot {
-  public bot: Bot
+  public bot: Bot | null
   private readonly config: TSConfig = new TSConfig()
 
   init (): void {
@@ -19,7 +19,12 @@ export default class TSBot {
     this.bot.once('kicked', (Reason) => this.errorOut(Reason))
     this.bot.once('end', () => this.errorOut('Ended abruptly'))
     this.bot.once('login', () => log('Logged in'))
-    this.bot.once('spawn', this.clearListeners)
+    this.bot.once('spawn', async () => await this.clearListeners())
+  }
+
+  stop (): void {
+    this.bot?.quit()
+    this.bot = null
   }
 
   private errorOut (...message: string[]): void {
@@ -27,11 +32,11 @@ export default class TSBot {
     process.exit(0)
   }
 
-  private clearListeners = async (): Promise<void> => {
-    await this.bot.waitForChunksToLoad()
-    this.bot.removeAllListeners('kicked')
-    this.bot.removeAllListeners('error')
-    this.bot.removeAllListeners('end')
+  private readonly clearListeners = async (): Promise<void> => {
+    await this.bot?.waitForChunksToLoad()
+    this.bot?.removeAllListeners('kicked')
+    this.bot?.removeAllListeners('error')
+    this.bot?.removeAllListeners('end')
     log('Spawned')
   }
 }
