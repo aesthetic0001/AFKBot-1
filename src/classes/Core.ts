@@ -1,11 +1,9 @@
-import TSBot from './TSBot.js'
-import TSConfig from './TSConfig.js'
+import TSDiscord from './TSDiscord.js'
 
 export default class Core {
-  public bot: TSBot = new TSBot()
-  public config: TSConfig = new TSConfig()
+  public dsbot: TSDiscord = new TSDiscord()
 
   init (): void {
-    this.bot.init()
+    this.dsbot.init()
   }
 }

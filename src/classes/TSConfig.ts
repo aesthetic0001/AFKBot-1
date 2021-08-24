@@ -1,33 +1,47 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs'
-import { log } from '../utils/log.js'
+import { error, log } from '../utils/log.js'
 
 export default class TSConfig {
   public config: Configuration
 
   init (): void {
-    if (existsSync('config.json')) {
-      this.assignConfig()
-      return
-    }
-
-    writeFileSync('config.json', JSON.stringify({
-      minecraft: {
-        account: {
-          username: 'Bot',
-          password: ''
-        },
-        server: {
-          host: 'localhost',
-          port: ''
-        }
+    try {
+      if (existsSync('config.json')) {
+        this.assignConfig()
+        return
       }
-    }, null, 2))
 
-    this.resetConfig()
+      writeFileSync('config.json', JSON.stringify({
+        minecraft: {
+          account: {
+            username: 'Bot',
+            password: ''
+          },
+          server: {
+            host: 'localhost',
+            port: ''
+          }
+        },
+        discord: {
+          token: '',
+          'client-id': '',
+          'guild-id': '',
+          prefix: 'mc!'
+        }
+      }, null, 2))
+
+      this.resetConfig()  
+    } catch (err) {
+      error(err)
+    }
   }
 
   private assignConfig (): void {
-    this.config = JSON.parse(readFileSync('config.json').toString())
+    try {
+      this.config = JSON.parse(readFileSync('config.json').toString())
+    } catch (err) {
+      error(err)
+    }
   }
 
   private resetConfig (): void {
@@ -46,5 +60,11 @@ interface Configuration {
       host: string
       port: string
     }
+  }
+  discord: {
+    token: string
+    'client-id': string
+    'guild-id': string,
+    prefix: string
   }
 }

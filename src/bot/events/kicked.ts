@@ -5,7 +5,11 @@ const event = {
   name: 'kicked',
   once: true,
   execute: async (tsbot: TSBot, reason: string) => {
-    error(new Error(reason))
+    try {
+      error(new Error(reason))
+    } catch (err) {
+      error(err)
+    }
   }
 }
 
