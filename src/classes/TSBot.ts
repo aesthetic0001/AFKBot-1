@@ -1,6 +1,6 @@
 import { Bot, createBot } from 'mineflayer'
-import TSConfig from '../utils/config.js'
-import { error } from '../utils/log.js'
+import TSConfig from './TSConfig.js'
+import { error, log } from '../utils/log.js'
 
 export default class TSBot {
   public bot: Bot
@@ -15,13 +15,23 @@ export default class TSBot {
       port: parseInt(this.config.config.minecraft.server.port) ?? 25565
     })
 
-    this.bot.once('error', (Error) => error(Error))
-    this.bot.once('kicked', (Reason) => error(new Error(Reason)))
+    this.bot.once('error', (Error) => this.errorOut(Error.message))
+    this.bot.once('kicked', (Reason) => this.errorOut(Reason))
+    this.bot.once('end', () => this.errorOut('Ended abruptly'))
+    this.bot.once('login', () => log('Logged in'))
     this.bot.once('spawn', this.clearListeners)
   }
 
-  private clearListeners (): void {
+  private errorOut (...message: string[]): void {
+    error(new Error(`${message[0]}`))
+    process.exit(0)
+  }
+
+  private clearListeners = async (): Promise<void> => {
+    await this.bot.waitForChunksToLoad()
     this.bot.removeAllListeners('kicked')
     this.bot.removeAllListeners('error')
+    this.bot.removeAllListeners('end')
+    log('Spawned')
   }
 }

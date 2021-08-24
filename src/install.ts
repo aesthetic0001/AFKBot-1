@@ -2,8 +2,8 @@ import { copySync } from 'fs-extra'
 
 const dirs = [
   {
-    in: 'src/server/public/',
-    out: 'dist/server/public/'
+    in: 'src/server/',
+    out: 'dist/server/'
   }
 ]
 

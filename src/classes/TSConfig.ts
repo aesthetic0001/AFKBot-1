@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs'
-import { log } from './log.js'
+import { log } from '../utils/log.js'
 
 export default class TSConfig {
   public config: Configuration
@@ -18,10 +18,10 @@ export default class TSConfig {
         },
         server: {
           host: 'localhost',
-          port: '25565'
+          port: ''
         }
       }
-    }))
+    }, null, 2))
 
     this.resetConfig()
   }

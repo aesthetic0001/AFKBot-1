@@ -1,6 +1,6 @@
-import TSBot from './bot/main.js'
-import TSServer from './server/express.js'
-import TSConfig from './utils/config.js'
+import TSBot from './TSBot.js'
+import TSServer from './TSServer.js'
+import TSConfig from './TSConfig.js'
 
 export default class Core {
   public bot: TSBot = new TSBot()
@@ -9,7 +9,7 @@ export default class Core {
 
   init (): void {
     this.config.init()
-    this.server.init()
     this.bot.init()
+    this.server.init()
   }
 }

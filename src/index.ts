@@ -1,3 +1,3 @@
-import Core from './main.js'
+import Core from './classes/Core.js'
 
 new Core().init()

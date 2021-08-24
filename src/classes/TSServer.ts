@@ -15,9 +15,9 @@ export default class TSServer {
   }
 
   get (): void {
-    app.use(express.static(join(directory, 'public')))
+    app.use(express.static(join(directory, '..', 'server')))
     app.get('/', (_, res) => {
-      res.sendFile(join(directory, 'public/html', 'index.html'))
+      res.sendFile(join(directory, '..', 'server', 'index.html'))
     })
   }
 }
