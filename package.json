@@ -4,11 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && npm run copy",
+    "build": "tsc",
     "test": "npm run build && npm start",
-    "start": "node .",
-    "copy": "node dist/install.js",
-    "server": "npm run copy && npm start"
+    "start": "node ."
   },
   "repository": {
     "type": "git",

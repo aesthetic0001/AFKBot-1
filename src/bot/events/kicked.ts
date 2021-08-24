@@ -1,5 +1,4 @@
 import TSBot from '../../classes/TSBot.js'
-import colors from '../../utils/colors.js'
 import { error } from '../../utils/log.js'
 
 const event = {
