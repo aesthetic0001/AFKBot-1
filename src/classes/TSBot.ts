@@ -2,7 +2,6 @@ import { Bot, createBot } from 'mineflayer'
 import { readdirSync } from 'fs'
 import { dirname, join } from 'path'
 import TSConfig from './TSConfig.js'
-import TSDiscord from './TSDiscord.js'
 import { error, log } from '../utils/log.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
@@ -12,6 +11,7 @@ export default class TSBot {
 
   init (): void {
     try {
+      this.config.init()
       this.bot = createBot({
         username: this.config.config.minecraft.account.username ?? 'Bot',
         password: this.config.config.minecraft.account.password ?? '',
@@ -24,7 +24,7 @@ export default class TSBot {
       this.bot.on('end', () => this.errorOut('Ended abruptly'))
       this.bot.once('spawn', async () => {
         await this.clearListeners()
-        log(`Logged in as ${this.bot?.username}`)
+        log(`Logged in as ${this.bot?.username ?? 'Error with username'}`)
       })
     } catch (err) {
       error(err)

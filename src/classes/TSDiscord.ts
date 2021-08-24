@@ -11,14 +11,14 @@ export default class TSDiscord {
   public config: TSConfig = new TSConfig()
   public bot: TSBot = new TSBot()
 
-  async init (): Promise<void> {
+  init (): void {
     try {
       this.config.init()
       this.dsbot.once('ready', () => {
-        log(`Logged in as ${this.dsbot.user?.tag}`)
+        log(`Logged in as ${this.dsbot.user?.tag ?? 'Error with username'}`)
       })
 
-      await this.loadCommands()
+      this.loadCommands()
 
       this.dsbot.login(this.config.config.discord.token)
     } catch (err) {
@@ -26,19 +26,20 @@ export default class TSDiscord {
     }
   }
 
-  private async loadCommands (): Promise<void> {
+  private loadCommands (): void {
     try {
       const commandFiles = readdirSync(join(directory, '..', 'bot/commands'))
 
-      for (const commandFile of commandFiles) {
+      this.dsbot?.on('message', async (message) => {
+        if (message.author.bot || !message.cleanContent.startsWith(this.config.config.discord.prefix)) return
+        const commandMsg = message.cleanContent.split(' ')[0].replace(this.config.config.discord.prefix, '')
+        const commandFile = commandFiles.find(file => file.includes(commandMsg))
+
+        if (!commandFile) return
         const command = (await import(`file://${join(directory, '..', 'bot/commands', commandFile)}`)).default
-        this.dsbot?.on('message', (message) => {
-          if (message.author.bot) return
-          const commandMsg = message.cleanContent.split(' ')[0]
-          const [, ...args] = message.cleanContent.split(' ')
-          command.execute(this, message, ...args)
-        })
-      }
+        const [, ...args] = message.cleanContent.split(' ')
+        command.execute(this, message, ...args)
+      })
     } catch (err) {
       error(err)
     }

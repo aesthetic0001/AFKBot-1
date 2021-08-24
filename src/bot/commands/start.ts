@@ -6,7 +6,7 @@ const message = {
   name: 'start',
   execute: async (dsbot: TSDiscord, message: Message) => {
     try {
-      await message.reply(`Starting`)
+      await message.reply('Starting')
       dsbot.bot.init()
     } catch (err) {
       error(err)

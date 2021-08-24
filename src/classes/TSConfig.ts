@@ -30,7 +30,7 @@ export default class TSConfig {
         }
       }, null, 2))
 
-      this.resetConfig()  
+      this.resetConfig()
     } catch (err) {
       error(err)
     }
@@ -64,7 +64,7 @@ interface Configuration {
   discord: {
     token: string
     'client-id': string
-    'guild-id': string,
+    'guild-id': string
     prefix: string
   }
 }
