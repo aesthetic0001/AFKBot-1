@@ -6,6 +6,8 @@ const port = 8080
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
 export default class TSServer {
+  public readonly directory: string = directory
+
   init = (): void => {
     const listener = app.listen(port, () => {
       // @ts-expect-error
