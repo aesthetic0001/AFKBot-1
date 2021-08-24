@@ -1,3 +1,3 @@
-import TSBot from './bot/main.js'
+import Core from './main.js';
 
-new TSBot().server.init()
+new Core().init()
