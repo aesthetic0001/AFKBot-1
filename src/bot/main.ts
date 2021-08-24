@@ -4,7 +4,7 @@ import { error } from '../utils/log.js'
 
 export default class TSBot {
   public bot: Bot
-  private config: TSConfig = new TSConfig()
+  private readonly config: TSConfig = new TSConfig()
 
   init (): void {
     this.config.init()
