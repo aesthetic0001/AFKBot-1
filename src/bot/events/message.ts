@@ -1,10 +1,13 @@
-import TSBot from '../../classes/TSBot.js';
-import { log } from '../../utils/log.js';
+import TSBot from '../../classes/TSBot.js'
+import colors from '../../utils/colors.js'
+import { log } from '../../utils/log.js'
 
-export const event = {
+const event = {
   name: 'message',
   once: false,
   execute: (tsbot: TSBot, message: string) => {
-    log(message)
+    log(`${colors.fg_green}> CHAT <${colors.reset} ${message}`)
   }
 }
+
+export default event

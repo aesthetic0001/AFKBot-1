@@ -42,7 +42,7 @@ export default class TSBot {
     this.bot.removeAllListeners('kicked')
     this.bot.removeAllListeners('error')
     this.bot.removeAllListeners('end')
-    this.loadListeners()
+    await this.loadListeners()
     log('Spawned')
   }
 
