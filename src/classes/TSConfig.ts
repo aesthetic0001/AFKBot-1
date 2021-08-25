@@ -24,8 +24,7 @@ export default class TSConfig {
         },
         discord: {
           token: '',
-          'client-id': '',
-          'guild-id': '',
+          'channel-id': '',
           prefix: 'mc!'
         }
       }, null, 2))
@@ -63,8 +62,7 @@ interface Configuration {
   }
   discord: {
     token: string
-    'client-id': string
-    'guild-id': string
+    'channel-id': string
     prefix: string
   }
 }

@@ -1,8 +1,9 @@
 import { Bot, createBot } from 'mineflayer'
 import { readdirSync } from 'fs'
 import { dirname, join } from 'path'
-import TSConfig from './TSConfig.js'
 import { error, log } from '../utils/log.js'
+import TSConfig from './TSConfig.js'
+import { dsError } from './TSDiscord.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
 export default class TSBot {
@@ -23,7 +24,7 @@ export default class TSBot {
       this.bot.on('kicked', (Reason) => this.errorOut(Reason))
       this.bot.on('end', () => this.errorOut('Ended abruptly'))
       this.bot.once('spawn', async () => {
-        await this.clearListeners()
+        await this.clearListeners(true)
         log(`Logged in as ${this.bot?.username ?? 'Error with username'}`)
       })
     } catch (err) {
@@ -33,25 +34,27 @@ export default class TSBot {
 
   stop (): void {
     try {
-      this.bot?.quit()
+      if (this.bot?.username) this.bot.quit()
       this.bot = null
     } catch (err) {
       error(err)
     }
   }
 
-  private errorOut (...message: string[]): void {
+  private async errorOut (...message: string[]): Promise<void> {
+    await this.clearListeners(false)
     error(new Error(`${message[0]}`))
-    process.exit(0)
+    dsError(`Couldn't connect: ${message[0]}`)
+    this.stop()
   }
 
-  private readonly clearListeners = async (): Promise<void> => {
+  private readonly clearListeners = async (loggedIn: boolean): Promise<void> => {
     try {
-      await this.bot?.waitForChunksToLoad()
+      if (loggedIn) await this.bot?.waitForChunksToLoad()
       this.bot?.removeAllListeners('kicked')
       this.bot?.removeAllListeners('error')
       this.bot?.removeAllListeners('end')
-      await this.loadListeners()
+      if (loggedIn) await this.loadListeners()
     } catch (err) {
       error(err)
     }

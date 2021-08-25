@@ -1,4 +1,4 @@
-import { Client } from 'discord.js'
+import { Client, TextChannel } from 'discord.js'
 import { readdirSync } from 'fs'
 import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
@@ -6,21 +6,26 @@ import TSBot from './TSBot.js'
 import TSConfig from './TSConfig.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
-export default class TSDiscord {
+let channel: TextChannel
+class TSDiscord {
   public dsbot: Client = new Client()
   public config: TSConfig = new TSConfig()
   public bot: TSBot = new TSBot()
+  public channel: TextChannel = channel
 
   init (): void {
     try {
       this.config.init()
       this.dsbot.once('ready', () => {
         log(`Logged in as ${this.dsbot.user?.tag ?? 'Error with username'}`)
+        this.loadCommands()
+        this.channel = (this.dsbot.channels.cache.get(this.config.config.discord['channel-id']) as TextChannel)
+        if (!this.channel) return error(new Error('Channel ID is not correct'))
+        channel = (this.dsbot.channels.cache.get(this.config.config.discord['channel-id']) as TextChannel)
       })
 
-      this.loadCommands()
-
       this.dsbot.login(this.config.config.discord.token)
+        .catch(error)
     } catch (err) {
       error(err)
     }
@@ -44,4 +49,13 @@ export default class TSDiscord {
       error(err)
     }
   }
+}
+
+async function dsError (message: string): Promise<void> {
+  await channel.send(message)
+}
+
+export {
+  TSDiscord,
+  dsError
 }

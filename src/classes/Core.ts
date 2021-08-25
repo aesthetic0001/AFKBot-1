@@ -1,4 +1,4 @@
-import TSDiscord from './TSDiscord.js'
+import { TSDiscord } from './TSDiscord.js'
 
 export default class Core {
   public dsbot: TSDiscord = new TSDiscord()
