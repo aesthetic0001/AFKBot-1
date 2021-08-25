@@ -9,7 +9,7 @@ export default class TSBot {
   public bot: Bot | null
   public readonly config: TSConfig = new TSConfig()
 
-  init (): void {
+  public init (): void {
     try {
       this.config.init()
       this.bot = createBot({
@@ -22,41 +22,38 @@ export default class TSBot {
       this.bot.on('error', (Error) => this.errorOut(Error.message))
       this.bot.on('kicked', (Reason) => this.errorOut(Reason))
       this.bot.on('end', () => this.errorOut('Ended abruptly'))
-      this.bot.once('spawn', async () => {
-        await this.clearListeners(true)
-        log(`Logged in as ${this.bot?.username ?? 'Error with username'}`)
-      })
+      this.bot.once('spawn', () => this.onSpawn()) 
     } catch (err) {
       error(err)
     }
   }
 
-  stop (): void {
+  public stop (): void {
     try {
-      if (this.bot?.username) this.bot.quit()
+      this.bot?.quit()
       this.bot = null
     } catch (err) {
       error(err)
     }
   }
 
-  private async errorOut (...message: string[]): Promise<void> {
-    try {
-      await this.clearListeners(false)
-      error(new Error(`${message[0]}`))
-      this.stop()
-    } catch (err) {
-      error(err)
-    }
+  private async onSpawn (): Promise<void> {
+    await this.clearListeners()
+    log(`Logged in as ${this.bot?.username ?? 'Error with username'}`)
   }
 
-  private readonly clearListeners = async (loggedIn: boolean): Promise<void> => {
+  private errorOut (...message: string[]): void {
+    error(new Error(`${message[0]}`))
+    process.exit(0)
+  }
+
+  private readonly clearListeners = async (): Promise<void> => {
     try {
-      if (loggedIn) await this.bot?.waitForChunksToLoad()
+      await this.bot?.waitForChunksToLoad()
       this.bot?.removeAllListeners('kicked')
       this.bot?.removeAllListeners('error')
       this.bot?.removeAllListeners('end')
-      if (loggedIn) await this.loadListeners()
+      await this.loadListeners()
     } catch (err) {
       error(err)
     }
