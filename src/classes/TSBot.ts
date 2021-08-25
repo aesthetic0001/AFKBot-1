@@ -20,9 +20,9 @@ export default class TSBot {
         port: parseInt(this.config.config.minecraft.server.port) ?? 25565
       })
 
-      this.bot.on('error', (Error) => this.errorOut(Error.message))
-      this.bot.on('kicked', (Reason) => this.errorOut(Reason))
-      this.bot.on('end', () => this.errorOut('Ended abruptly'))
+      this.bot.on('error', async (Error) => await this.errorOut(Error.message))
+      this.bot.on('kicked', async (Reason) => await this.errorOut(Reason))
+      this.bot.on('end', async () => await this.errorOut('Ended abruptly'))
       this.bot.once('spawn', async () => {
         await this.clearListeners(true)
         log(`Logged in as ${this.bot?.username ?? 'Error with username'}`)
