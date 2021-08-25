@@ -47,7 +47,7 @@ export default class TSBot {
   }
 
   private errorOut (...message: string[]): void {
-    error(new Error(`${message[0]}`))
+    error(new Error(`Error connecting: ${message[0]}`))
     process.exit(0)
   }
 
@@ -69,6 +69,7 @@ export default class TSBot {
 
       for (const eventFile of eventFiles) {
         const event = (await import(`file://${join(directory, '..', 'bot/events', eventFile)}`)).default
+        log(`Event ${event.name} loaded`)
         this.bot?.[event.once ? 'once' : 'on'](event.name, (...args: any[]) => {
           event.execute(this, ...args)
         })

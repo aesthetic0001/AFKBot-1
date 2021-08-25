@@ -6,7 +6,7 @@ const event = {
   once: true,
   execute: async (tsbot: TSBot, reason: string) => {
     try {
-      error(new Error(reason))
+      error(new Error(`Kicked: ${reason}`))
     } catch (err) {
       error(err)
     }
