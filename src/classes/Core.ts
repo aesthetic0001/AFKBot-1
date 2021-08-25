@@ -1,4 +1,4 @@
-import TSBot from './TSBot';
+import TSBot from './TSBot.js'
 
 export default class Core {
   public bot: TSBot = new TSBot()

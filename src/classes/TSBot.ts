@@ -22,7 +22,7 @@ export default class TSBot {
       this.bot.on('error', (Error) => this.errorOut(Error.message))
       this.bot.on('kicked', (Reason) => this.errorOut(Reason))
       this.bot.on('end', () => this.errorOut('Ended abruptly'))
-      this.bot.once('spawn', () => this.onSpawn()) 
+      this.bot.once('spawn', async () => await this.onSpawn())
     } catch (err) {
       error(err)
     }
@@ -38,8 +38,12 @@ export default class TSBot {
   }
 
   private async onSpawn (): Promise<void> {
-    await this.clearListeners()
-    log(`Logged in as ${this.bot?.username ?? 'Error with username'}`)
+    try {
+      await this.clearListeners()
+      log(`Logged in as ${this.bot?.username ?? 'Error with username'}`)
+    } catch (err) {
+      error(err)
+    }
   }
 
   private errorOut (...message: string[]): void {
