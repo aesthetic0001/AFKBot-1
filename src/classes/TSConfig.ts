@@ -21,11 +21,6 @@ export default class TSConfig {
             host: 'localhost',
             port: ''
           }
-        },
-        discord: {
-          token: '',
-          'channel-id': '',
-          prefix: 'mc!'
         }
       }, null, 2))
 
@@ -59,10 +54,5 @@ interface Configuration {
       host: string
       port: string
     }
-  }
-  discord: {
-    token: string
-    'channel-id': string
-    prefix: string
   }
 }

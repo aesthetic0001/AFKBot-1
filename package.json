@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/DrMoraschi/Bot#readme",
   "dependencies": {
-    "discord.js": "^12.5.3",
     "mineflayer": "^3.11.0"
   },
   "devDependencies": {
