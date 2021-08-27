@@ -1,4 +1,4 @@
-import { Bot, createBot } from 'mineflayer'
+import { Bot, BotEvents, createBot } from 'mineflayer'
 import { readdirSync } from 'fs'
 import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
@@ -70,9 +70,9 @@ export default class TSBot {
       const eventFiles = readdirSync(join(directory, '..', 'bot/events'))
 
       for (const eventFile of eventFiles) {
-        const event = (await import(`file://${join(directory, '..', 'bot/events', eventFile)}`)).default
+        const event = (await import(`file://${join(directory, '..', 'bot/events', eventFile)}`)).default as Event
         log(`Event ${event.name} loaded`)
-        this.bot?.[event.once ? 'once' : 'on'](event.name, (...args: any[]) => {
+        this.bot?.[event.once ? 'once' : 'on'](event.name as keyof BotEvents, (...args: any[]) => {
           event.execute(this, ...args)
         })
       }
@@ -80,4 +80,10 @@ export default class TSBot {
       error(err)
     }
   }
+}
+
+interface Event {
+  name: string
+  once: boolean
+  execute: (tsbot: TSBot, ...args: any[]) => void | Promise<void>
 }
