@@ -3,7 +3,7 @@ import { readdirSync } from 'fs'
 import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
 import TSConfig from './TSConfig.js'
-import { pathfinder } from 'mineflayer-pathfinder'
+import initMachine from '../bot/machines/Main.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
 export default class TSBot {
@@ -59,6 +59,7 @@ export default class TSBot {
       this.bot?.removeAllListeners('error')
       this.bot?.removeAllListeners('end')
       await this.loadListeners()
+      initMachine(this.bot as Bot)
     } catch (err) {
       error(err)
     }
