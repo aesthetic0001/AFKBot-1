@@ -3,6 +3,7 @@ import { readdirSync } from 'fs'
 import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
 import TSConfig from './TSConfig.js'
+import { pathfinder } from 'mineflayer-pathfinder'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
 export default class TSBot {
