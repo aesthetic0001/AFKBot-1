@@ -1,8 +1,9 @@
 import { Bot } from 'mineflayer'
-import { BehaviorIdle, BotStateMachine, NestedStateMachine, StateMachineWebserver, StateTransition } from 'mineflayer-statemachine'
+import { BehaviorIdle, BotStateMachine, NestedStateMachine, StateMachineTargets, StateMachineWebserver, StateTransition } from 'mineflayer-statemachine'
 import { BehaviorLoadPlugins } from './behaviors/BehaviorLoadPlugins.js'
 
 export default function initMachine (bot: Bot): void {
+  const targets: StateMachineTargets = {}
   const loadPlugins = new BehaviorLoadPlugins(bot)
   const idle = new BehaviorIdle()
   idle.stateName = 'Idle'

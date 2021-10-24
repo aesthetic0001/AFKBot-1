@@ -1,5 +1,4 @@
 import { Bot } from 'mineflayer'
-import { pathfinder } from 'mineflayer-pathfinder'
 import { StateBehavior } from 'mineflayer-statemachine'
 
 export class BehaviorLoadPlugins implements StateBehavior {
@@ -14,7 +13,6 @@ export class BehaviorLoadPlugins implements StateBehavior {
 
   onStateEntered (): void {
     this.bot.loadPlugins([
-      pathfinder
     ])
   }
 }
