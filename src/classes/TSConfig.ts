@@ -20,7 +20,14 @@ export default class TSConfig {
           server: {
             host: 'localhost',
             port: ''
+          },
+          reconnect: {
+            'on-kick': 'false',
+            timeout: '5000'
           }
+        },
+        log: {
+          clear: 'true'
         }
       }, null, 2))
 
@@ -54,5 +61,12 @@ interface Configuration {
       host: string
       port: string
     }
+    reconnect: {
+      'on-kick': string,
+      timeout: string
+    }
+  }
+  log: {
+    clear: string
   }
 }

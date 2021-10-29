@@ -13,6 +13,8 @@ export default class TSBot {
   public init (): void {
     try {
       this.config.init()
+      if (this.config.config.log.clear === 'true') console.clear()
+
       this.bot = createBot({
         username: this.config.config.minecraft.account.username ?? 'Bot',
         password: this.config.config.minecraft.account.password ?? '',
@@ -59,7 +61,7 @@ export default class TSBot {
       this.bot?.removeAllListeners('error')
       this.bot?.removeAllListeners('end')
       await this.loadListeners()
-      initMachine(this.bot as Bot)
+      await initMachine(this.bot as Bot)
     } catch (err) {
       error(err)
     }

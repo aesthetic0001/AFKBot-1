@@ -1,9 +1,9 @@
 import { Bot } from 'mineflayer'
-import { BehaviorIdle, BotStateMachine, NestedStateMachine, StateMachineTargets, StateMachineWebserver, StateTransition } from 'mineflayer-statemachine'
+import { BehaviorIdle, BotStateMachine, NestedStateMachine, StateMachineWebserver, StateTransition } from 'mineflayer-statemachine'
+import { getPortPromise } from 'portfinder'
 import { BehaviorLoadPlugins } from './behaviors/BehaviorLoadPlugins.js'
 
-export default function initMachine (bot: Bot): void {
-  const targets: StateMachineTargets = {}
+export default async function initMachine (bot: Bot): Promise<void> {
   const loadPlugins = new BehaviorLoadPlugins(bot)
   const idle = new BehaviorIdle()
   idle.stateName = 'Idle'
@@ -20,6 +20,6 @@ export default function initMachine (bot: Bot): void {
   rootStateMachine.stateName = 'Main Machine'
 
   const botStateMachine = new BotStateMachine(bot, rootStateMachine)
-  const webserver = new StateMachineWebserver(bot, botStateMachine)
+  const webserver = new StateMachineWebserver(bot, botStateMachine, await getPortPromise())
   webserver.startServer()
 }

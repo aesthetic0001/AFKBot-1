@@ -22,7 +22,8 @@
   "homepage": "https://github.com/DrMoraschi/Bot#readme",
   "dependencies": {
     "mineflayer": "^3.11.0",
-    "mineflayer-statemachine": "^1.6.4"
+    "mineflayer-statemachine": "^1.6.4",
+    "portfinder": "^1.0.28"
   },
   "devDependencies": {
     "@types/node": "^16.7.1"
