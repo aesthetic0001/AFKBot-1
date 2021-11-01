@@ -3,3 +3,5 @@
 It's back
 
 I'm too lazy to write a "How to Use" or "Features" section now, but feel free to read [why I deleted my older AFKBot repository](./docs/why.md)
+
+Revived project because I was bored
