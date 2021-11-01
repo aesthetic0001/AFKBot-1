@@ -15,7 +15,8 @@ export default class TSConfig {
         minecraft: {
           account: {
             username: 'Bot',
-            password: ''
+            password: '',
+            auth: 'mojang'
           },
           server: {
             host: 'localhost',
@@ -24,6 +25,9 @@ export default class TSConfig {
           reconnect: {
             'on-kick': 'false',
             timeout: '5000'
+          },
+          'auto-eat': {
+            at: '15'
           }
         },
         log: {
@@ -56,6 +60,7 @@ interface Configuration {
     account: {
       username: string
       password: string
+      auth: string
     }
     server: {
       host: string
@@ -64,6 +69,9 @@ interface Configuration {
     reconnect: {
       'on-kick': string,
       timeout: string
+    }
+    'auto-eat': {
+      at: string
     }
   }
   log: {

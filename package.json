@@ -12,8 +12,12 @@
     "type": "git",
     "url": "git+https://github.com/amoraschi/Bot.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "afk",
+    "bot",
+    "minecraft"
+  ],
+  "author": "amoraschi",
   "license": "ISC",
   "type": "module",
   "bugs": {
@@ -22,6 +26,7 @@
   "homepage": "https://github.com/amoraschi/Bot#readme",
   "dependencies": {
     "mineflayer": "^3.11.0",
+    "mineflayer-auto-eat": "^2.3.3",
     "mineflayer-statemachine": "^1.6.4",
     "portfinder": "^1.0.28"
   },

@@ -13,13 +13,12 @@ export default class TSBot {
   public init (): void {
     try {
       this.config.init()
-      if (this.config.config.log.clear === 'true') console.clear()
-
       this.bot = createBot({
         username: this.config.config.minecraft.account.username ?? 'Bot',
         password: this.config.config.minecraft.account.password ?? '',
         host: this.config.config.minecraft.server.host ?? 'localhost',
-        port: parseInt(this.config.config.minecraft.server.port) ?? 25565
+        port: parseInt(this.config.config.minecraft.server.port) ?? 25565,
+        auth: (this.config.config.minecraft.account.auth.includes('mojang') ? 'mojang' : 'microsoft')
       })
 
       this.bot.on('error', (Error) => this.errorOut(Error.message))
@@ -56,12 +55,13 @@ export default class TSBot {
 
   private readonly clearListeners = async (): Promise<void> => {
     try {
+      if (this.config.config.log.clear === 'true') console.clear()
       await this.bot?.waitForChunksToLoad()
       this.bot?.removeAllListeners('kicked')
       this.bot?.removeAllListeners('error')
       this.bot?.removeAllListeners('end')
       await this.loadListeners()
-      await initMachine(this.bot as Bot)
+      await initMachine(this.bot as Bot, this.config)
     } catch (err) {
       error(err)
     }
