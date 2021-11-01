@@ -10,16 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DrMoraschi/Bot.git"
+    "url": "git+https://github.com/amoraschi/Bot.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/DrMoraschi/Bot/issues"
+    "url": "https://github.com/amoraschi/Bot/issues"
   },
-  "homepage": "https://github.com/DrMoraschi/Bot#readme",
+  "homepage": "https://github.com/amoraschi/Bot#readme",
   "dependencies": {
     "mineflayer": "^3.11.0",
     "mineflayer-statemachine": "^1.6.4",
