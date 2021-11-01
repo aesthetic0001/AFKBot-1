@@ -1,3 +1,5 @@
-import Core from './classes/Core.js'
+import TSBot from './classes/TSBot.js'
 
-new Core().init()
+;(async () => {
+  new TSBot().init()
+})()
