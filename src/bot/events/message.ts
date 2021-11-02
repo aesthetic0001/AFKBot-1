@@ -1,4 +1,4 @@
-import TSBot from '../../classes/TSBot.js'
+import { TSBot } from '../../classes/TSBot.js'
 import colors from '../../utils/colors.js'
 import { error, log } from '../../utils/log.js'
 

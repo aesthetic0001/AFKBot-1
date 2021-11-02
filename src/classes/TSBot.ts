@@ -4,16 +4,17 @@ import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
 import TSConfig from './TSConfig.js'
 import initMachine from '../bot/machines/Main.js'
+import initServer from '../page/index.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
-export default class TSBot {
-  public bot: Bot | null
+let bot: Bot | null
+class TSBot {
   public readonly config: TSConfig = new TSConfig()
 
   public init (): void {
     try {
       this.config.init()
-      this.bot = createBot({
+      bot = createBot({
         username: this.config.config.minecraft.account.username ?? 'Bot',
         password: this.config.config.minecraft.account.password ?? '',
         host: this.config.config.minecraft.server.host ?? 'localhost',
@@ -21,10 +22,10 @@ export default class TSBot {
         auth: (this.config.config.minecraft.account.auth.includes('mojang') ? 'mojang' : 'microsoft')
       })
 
-      this.bot.on('error', (Error) => this.errorOut(Error.message))
-      this.bot.on('kicked', (Reason) => this.errorOut(Reason))
-      this.bot.on('end', () => this.errorOut('Ended abruptly'))
-      this.bot.once('spawn', async () => await this.onSpawn())
+      bot.on('error', (Error) => this.errorOut(Error.message))
+      bot.on('kicked', (Reason) => this.errorOut(Reason))
+      bot.on('end', () => this.errorOut('Ended abruptly'))
+      bot.once('spawn', async () => await this.onSpawn())
     } catch (err) {
       error(err)
     }
@@ -32,8 +33,8 @@ export default class TSBot {
 
   public stop (): void {
     try {
-      this.bot?.quit()
-      this.bot = null
+      bot?.quit()
+      bot = null
     } catch (err) {
       error(err)
     }
@@ -42,7 +43,7 @@ export default class TSBot {
   private async onSpawn (): Promise<void> {
     try {
       await this.clearListeners()
-      log(`Logged in as ${this.bot?.username ?? 'Error with username'}`)
+      log(`Logged in as ${bot?.username ?? 'Error with username'}`)
     } catch (err) {
       error(err)
     }
@@ -56,12 +57,13 @@ export default class TSBot {
   private readonly clearListeners = async (): Promise<void> => {
     try {
       if (this.config.config.log.clear === 'true') console.clear()
-      await this.bot?.waitForChunksToLoad()
-      this.bot?.removeAllListeners('kicked')
-      this.bot?.removeAllListeners('error')
-      this.bot?.removeAllListeners('end')
+      await bot?.waitForChunksToLoad()
+      bot?.removeAllListeners('kicked')
+      bot?.removeAllListeners('error')
+      bot?.removeAllListeners('end')
       await this.loadListeners()
-      await initMachine(this.bot as Bot, this.config)
+      await initServer()
+      await initMachine(bot as Bot, this.config)
     } catch (err) {
       error(err)
     }
@@ -74,7 +76,7 @@ export default class TSBot {
       for (const eventFile of eventFiles) {
         const event = (await import(`file://${join(directory, '..', 'bot/events', eventFile)}`)).default as Event
         log(`Event ${event.name} loaded`)
-        this.bot?.[event.once ? 'once' : 'on'](event.name as keyof BotEvents, (...args: any[]) => {
+        bot?.[event.once ? 'once' : 'on'](event.name as keyof BotEvents, (...args: any[]) => {
           event.execute(this, ...args)
         })
       }
@@ -82,6 +84,15 @@ export default class TSBot {
       error(err)
     }
   }
+}
+
+function sendChat (content: string): void {
+  bot?.chat(content)
+}
+
+export {
+  TSBot,
+  sendChat
 }
 
 interface Event {
