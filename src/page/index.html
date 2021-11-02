@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+  }
+
+  body {
+    background-color: black;
+  }
+
+  input {
+    position: absolute;
+    bottom: 1.25%;
+    left: 5%;
+    height: 5%;
+    width: 90%;
+    outline: none;
+    color: black;
+    font-size: xx-large;
+  }
+
+  #output {
+    position: absolute;
+    top: 2.5%;
+    left: 5%;
+    height: 90%;
+    width: 90%;
+    background-color: white;
+  }
+</style>
+<body>
+  <div id="output"></div>
+  <input id="input" placeholder="Type something and hit Enter to use the bot's chat">
+  <script>
+    let el
+    let xhr
+    window.onload = () => {
+      xhr = new XMLHttpRequest()
+
+      el = document.querySelector('#input')
+      el.onkeyup = (event) => {
+        if (event.keyCode === 13) {
+          console.log(`> ${el.value}`)
+          sendInput(el.value)
+        }
+      }
+    }
+
+    function sendInput (content) {
+      xhr.open('post', '/send')
+      xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.send(JSON.stringify({
+        type: 'chat',
+        content: el.value
+      }))
+
+      cleanInput()
+    }
+
+    function cleanInput () {
+      el.value = ''
+    }
+  </script>
+</body>
+</html>

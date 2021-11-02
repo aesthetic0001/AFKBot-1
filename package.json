@@ -25,12 +25,14 @@
   },
   "homepage": "https://github.com/amoraschi/Bot#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "mineflayer": "^3.11.0",
     "mineflayer-auto-eat": "^2.3.3",
     "mineflayer-statemachine": "^1.6.4",
     "portfinder": "^1.0.28"
   },
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@types/node": "^16.7.1"
   }
 }
