@@ -36,7 +36,8 @@ export default class TSConfig {
             ]
           },
           afk: {
-            radius: '5'
+            radius: '5',
+            timeout: '5000'
           }
         },
         page: {
@@ -88,6 +89,7 @@ interface Configuration {
     }
     afk: {
       radius: string
+      timeout: string
     }
   }
   page: {

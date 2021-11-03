@@ -1,5 +1,6 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior } from 'mineflayer-statemachine'
+import { pathfinder } from 'mineflayer-pathfinder'
 import data from 'minecraft-data'
 import TSConfig from '../../../classes/TSConfig'
 
@@ -16,6 +17,10 @@ export class BehaviorLoadData implements StateBehavior {
   }
 
   onStateEntered (): void {
+    this.bot.loadPlugins([
+      pathfinder
+    ])
+
     // @ts-expect-error
     this.bot.data = data(this.bot.version)
   }

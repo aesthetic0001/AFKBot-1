@@ -1,15 +1,18 @@
 import { Bot } from 'mineflayer'
 import { BehaviorIdle, BehaviorMoveTo, NestedStateMachine, StateMachineTargets, StateTransition } from 'mineflayer-statemachine'
-import TSConfig from '../../../classes/TSConfig'
-import { BehaviorRandomVec3 } from '../behaviors/BehaviorRandomVec3'
+import TSConfig from '../../../classes/TSConfig.js'
+import { BehaviorWait } from '../behaviors/BehaviorWait.js'
+import { BehaviorRandomVec3 } from '../behaviors/BehaviorRandomVec3.js'
 
 export default function createAFKState (bot: Bot, targets: StateMachineTargets, config: TSConfig) {
   const enter = new BehaviorIdle()
+  const exit = enter
   const randomVec = new BehaviorRandomVec3(bot, targets, config)
   const goto = new BehaviorMoveTo(bot, targets)
-  const exit = enter
+  const wait = new BehaviorWait(bot, config)
 
   enter.stateName = 'Main State'
+  goto.stateName = 'Move To'
 
   const transitions = [
     new StateTransition({
@@ -26,8 +29,14 @@ export default function createAFKState (bot: Bot, targets: StateMachineTargets, 
 
     new StateTransition({
       parent: goto,
-      child: exit,
+      child: wait,
       shouldTransition: () => goto.isFinished()
+    }),
+
+    new StateTransition({
+      parent: wait,
+      child: randomVec,
+      shouldTransition: () => wait.isFinished
     }),
 
     new StateTransition({
