@@ -50,7 +50,6 @@
       xhr.open('post', '/send')
       xhr.setRequestHeader('Content-Type', 'application/json')
       xhr.send(JSON.stringify({
-        type: 'chat',
         content: el.value
       }))
 

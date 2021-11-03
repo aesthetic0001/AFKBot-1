@@ -34,7 +34,13 @@ export default class TSConfig {
               'poisonous_potato',
               'pufferfish'
             ]
+          },
+          afk: {
+            radius: '5'
           }
+        },
+        page: {
+          'commands-prefix': '+'
         },
         log: {
           clear: 'true'
@@ -80,6 +86,12 @@ interface Configuration {
       at: string
       'banned-food': string[]
     }
+    afk: {
+      radius: string
+    }
+  }
+  page: {
+    'commands-prefix': string
   }
   log: {
     clear: string

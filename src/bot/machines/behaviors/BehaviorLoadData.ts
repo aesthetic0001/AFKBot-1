@@ -5,7 +5,7 @@ import TSConfig from '../../../classes/TSConfig'
 
 export class BehaviorLoadData implements StateBehavior {
   public active: boolean = false
-  public stateName: string = 'LoadData'
+  public stateName: string = 'Load Data'
   public isFinished: boolean = false
   public bot: Bot
   public config: TSConfig
@@ -16,9 +16,6 @@ export class BehaviorLoadData implements StateBehavior {
   }
 
   onStateEntered (): void {
-    this.bot.loadPlugins([
-    ])
-
     // @ts-expect-error
     this.bot.data = data(this.bot.version)
   }

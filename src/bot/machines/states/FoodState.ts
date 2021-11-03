@@ -4,8 +4,7 @@ import TSConfig from '../../../classes/TSConfig.js'
 import { BehaviorEatFood } from '../behaviors/BehaviorEatFood.js'
 import { BehaviorGetFood } from '../behaviors/BehaviorGetFood.js'
 
-export default function createFoodState (bot: Bot, targets: StateMachineTargets, config: TSConfig)
-{
+export default function createFoodState (bot: Bot, targets: StateMachineTargets, config: TSConfig) {
   const enter = new BehaviorIdle()
   const exit = enter
   const food = new BehaviorGetFood(bot, targets, config)
