@@ -6,11 +6,11 @@ import { log } from '../utils/log.js'
 const app = express()
 const dirname = import.meta.url.replace('file:///', '')
 
-export default async function initServer () {
+export default async function initServer (): Promise<void> {
   const port = await getPortPromise()
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
-  app.listen(port, () => {
+  app.listen(port, async () => {
     log(`Chat server started on https://localhost:${port}`)
   })
 

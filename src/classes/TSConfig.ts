@@ -27,7 +27,13 @@ export default class TSConfig {
             timeout: '5000'
           },
           'auto-eat': {
-            at: '15'
+            at: '15',
+            'banned-food': [
+              'rotten_flesh',
+              'spider_eye',
+              'poisonous_potato',
+              'pufferfish'
+            ]
           }
         },
         log: {
@@ -67,11 +73,12 @@ interface Configuration {
       port: string
     }
     reconnect: {
-      'on-kick': string,
+      'on-kick': string
       timeout: string
     }
     'auto-eat': {
       at: string
+      'banned-food': string[]
     }
   }
   log: {

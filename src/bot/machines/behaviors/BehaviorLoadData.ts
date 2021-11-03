@@ -1,6 +1,5 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior } from 'mineflayer-statemachine'
-import autoeat from 'mineflayer-auto-eat'
 import data from 'minecraft-data'
 import TSConfig from '../../../classes/TSConfig'
 
@@ -18,11 +17,8 @@ export class BehaviorLoadData implements StateBehavior {
 
   onStateEntered (): void {
     this.bot.loadPlugins([
-      autoeat
     ])
 
-    // @ts-expect-error
-    this.bot.autoEat.options.startAt = parseInt(this.config.config.minecraft['auto-eat'].at)
     // @ts-expect-error
     this.bot.data = data(this.bot.version)
   }

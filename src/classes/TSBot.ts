@@ -3,7 +3,7 @@ import { readdirSync } from 'fs'
 import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
 import TSConfig from './TSConfig.js'
-import initMachine from '../bot/machines/Main.js'
+import initMachine from '../bot/machines/MainState.js'
 import initServer from '../page/index.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 

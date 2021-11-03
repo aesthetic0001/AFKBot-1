@@ -2,14 +2,15 @@ import { Bot } from 'mineflayer'
 import { BehaviorIdle, BotStateMachine, NestedStateMachine, StateMachineTargets, StateMachineWebserver, StateTransition } from 'mineflayer-statemachine'
 import { getPortPromise } from 'portfinder'
 import TSConfig from '../../classes/TSConfig.js'
-import { BehaviorGetFood } from './behaviors/BehaviorGetFood.js'
 import { BehaviorLoadData } from './behaviors/BehaviorLoadData.js'
+import createFoodState from './states/FoodState.js'
 
 export default async function initMachine (bot: Bot, config: TSConfig): Promise<void> {
   const targets: StateMachineTargets = {}
   const data = new BehaviorLoadData(bot, config)
   const idle = new BehaviorIdle()
-  const food = new BehaviorGetFood(bot, targets)
+  const eatState = createFoodState(bot, targets, config)
+
   idle.stateName = 'Idle'
 
   const transitions: StateTransition[] = [
@@ -21,19 +22,25 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
 
     new StateTransition({
       parent: idle,
-      child: food,
-      shouldTransition: () => (bot.food <= parseInt(config.config.minecraft['auto-eat'].at))
+      child: eatState,
+      shouldTransition: () => false
     }),
 
     new StateTransition({
-      parent: food,
+      parent: eatState,
       child: idle,
-      shouldTransition: () => (bot.food === 20)
+      shouldTransition: () => eatState.isFinished()
     })
   ]
 
+  bot.on('health', () => {
+    if (bot.food <= parseInt(config.config.minecraft['auto-eat'].at)) {
+      transitions[1].trigger()
+    }
+  })
+
   const rootStateMachine = new NestedStateMachine(transitions, data)
-  rootStateMachine.stateName = 'Main Machine'
+  rootStateMachine.stateName = 'Main State'
 
   const botStateMachine = new BotStateMachine(bot, rootStateMachine)
   const webserver = new StateMachineWebserver(bot, botStateMachine, await getPortPromise())
