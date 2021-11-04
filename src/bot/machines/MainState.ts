@@ -4,13 +4,11 @@ import { getPortPromise } from 'portfinder'
 import TSConfig from '../../classes/TSConfig.js'
 import { BehaviorLoadData } from './behaviors/BehaviorLoadData.js'
 import createAFKState from './states/AFKState.js'
-import createFoodState from './states/FoodState.js'
 
 export default async function initMachine (bot: Bot, config: TSConfig): Promise<void> {
   const targets: StateMachineTargets = {}
   const data = new BehaviorLoadData(bot, config)
   const idle = new BehaviorIdle()
-  const eatState = createFoodState(bot, targets, config)
   const afkState = createAFKState(bot, targets, config)
 
   idle.stateName = 'Idle'
@@ -24,20 +22,8 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
 
     new StateTransition({
       parent: idle,
-      child: eatState,
-      shouldTransition: () => false
-    }),
-
-    new StateTransition({
-      parent: eatState,
-      child: idle,
-      shouldTransition: () => eatState.isFinished()
-    }),
-
-    new StateTransition({
-      parent: idle,
       child: afkState,
-      shouldTransition: () => true
+      shouldTransition: () => false
     }),
 
     new StateTransition({
@@ -47,10 +33,14 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
     })
   ]
 
-  bot.on('health', () => {
-    if (bot.food <= parseInt(config.config.minecraft['auto-eat'].at)) {
-      transitions[4].trigger()
-      transitions[1].trigger()
+  bot.on('whisper', (user, msg) => {
+    switch (msg) {
+      case 'afk':
+        transitions[3].trigger()
+        break
+      case 'stop':
+        transitions[4].trigger()
+        break
     }
   })
 
