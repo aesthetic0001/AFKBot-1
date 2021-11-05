@@ -4,7 +4,6 @@ import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
 import TSConfig from './TSConfig.js'
 import initMachine from '../bot/machines/MainState.js'
-import initServer from '../page/index.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
 let bot: Bot | null
@@ -62,7 +61,6 @@ class TSBot {
       bot?.removeAllListeners('error')
       bot?.removeAllListeners('end')
       await this.loadListeners()
-      await initServer()
       await initMachine(bot as Bot, this.config)
     } catch (err) {
       error(err)
@@ -86,18 +84,21 @@ class TSBot {
   }
 }
 
-function sendChat (content: string): void {
-  bot?.chat(content)
-}
-
-function sendInv () {
-  return bot?.inventory.items()
+const utils = {
+  sendChat: (content: string): void => {
+    bot?.chat(content)
+  },
+  sendInv: () => {
+    return bot?.inventory.items()
+  },
+  dropItem: async (name: string) => {
+    await bot?.tossStack(bot.inventory.items().find(item => item.name === name))
+  }
 }
 
 export {
   TSBot,
-  sendChat,
-  sendInv
+  utils
 }
 
 interface Event {
