@@ -1,5 +1,6 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior, StateMachineTargets } from 'mineflayer-statemachine'
+import TSConfig from '../../../classes/TSConfig.js'
 import { error } from '../../../utils/log.js'
 
 export class BehaviorEatFood implements StateBehavior {
@@ -8,10 +9,12 @@ export class BehaviorEatFood implements StateBehavior {
   public isFinished: boolean = false
   public bot: Bot
   public targets: StateMachineTargets
+  public config: TSConfig
 
-  constructor (bot: Bot, targets: StateMachineTargets) {
+  constructor (bot: Bot, targets: StateMachineTargets, config: TSConfig) {
     this.bot = bot
     this.targets = targets
+    this.config = config
   }
 
   async onStateEntered (): Promise<void> {
@@ -19,7 +22,9 @@ export class BehaviorEatFood implements StateBehavior {
     if (this.targets.item) {
       try {
         await this.bot.equip(this.targets.item, 'hand')
-        await this.bot.consume()
+        while (this.bot.food <= parseInt(this.config.config.minecraft['auto-eat'].at)) {
+          await this.bot.consume()
+        }
       } catch (err) {
         error(err)
       }

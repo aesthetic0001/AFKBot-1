@@ -36,10 +36,10 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
   bot.on('whisper', (user, msg) => {
     switch (msg) {
       case 'afk':
-        transitions[3].trigger()
+        transitions[1].trigger()
         break
       case 'stop':
-        transitions[4].trigger()
+        transitions[2].trigger()
         break
     }
   })
