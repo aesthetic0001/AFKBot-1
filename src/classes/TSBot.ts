@@ -90,9 +90,14 @@ function sendChat (content: string): void {
   bot?.chat(content)
 }
 
+function sendInv () {
+  return bot?.inventory.items()
+}
+
 export {
   TSBot,
-  sendChat
+  sendChat,
+  sendInv
 }
 
 interface Event {

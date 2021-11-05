@@ -1,7 +1,7 @@
 import express from 'express'
 import { join } from 'path'
 import { getPortPromise } from 'portfinder'
-import { sendChat } from '../classes/TSBot.js'
+import { sendChat, sendInv } from '../classes/TSBot.js'
 import { log } from '../utils/log.js'
 const app = express()
 const dirname = import.meta.url.replace('file:///', '')
@@ -20,5 +20,10 @@ export default async function initServer (): Promise<void> {
 
   app.post('/send', (req, _) => {
     sendChat(req.body.content)
+  })
+
+  app.get('/inv', (_, res) => {
+    const inv = sendInv()
+    res.json(inv)
   })
 }
