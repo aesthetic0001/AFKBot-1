@@ -4,6 +4,7 @@ import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
 import TSConfig from './TSConfig.js'
 import initMachine from '../bot/machines/MainState.js'
+import initServer from '../page/server.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
 let bot: Bot | null
@@ -61,6 +62,7 @@ class TSBot {
       bot?.removeAllListeners('error')
       bot?.removeAllListeners('end')
       await this.loadListeners()
+      await initServer()
       await initMachine(bot as Bot, this.config)
     } catch (err) {
       error(err)

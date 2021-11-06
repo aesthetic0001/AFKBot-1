@@ -40,6 +40,9 @@ export default class TSConfig {
             timeout: '5000'
           }
         },
+        page: {
+          'commands-prefix': '+'
+        },
         log: {
           clear: 'true'
         }
@@ -88,6 +91,9 @@ interface Configuration {
       radius: string
       timeout: string
     }
+  }
+  page: {
+    'commands-prefix': string
   }
   log: {
     clear: string
