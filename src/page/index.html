@@ -121,7 +121,7 @@
     socket.on('post', (msg) => {
       const el = document.createElement('li')
       el.className = 'msg'
-      el.textContent = `${new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()} ${msg}`
+      el.textContent = `${new Date().getHours() + ':' + new Date().getMinutes() + ':' + (new Date().getSeconds() < 10 ? `0${new Date().getSeconds()}` : new Date().getSeconds())} ${msg}`
       output.appendChild(el)
       window.scrollTo(0, document.body.scrollHeight)
     })
