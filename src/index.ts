@@ -1,5 +1,5 @@
 import { TSBot } from './classes/TSBot.js'
 
 ;(async () => {
-  new TSBot().init()
+  await new TSBot().init()
 })()

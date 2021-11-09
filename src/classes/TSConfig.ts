@@ -40,6 +40,9 @@ export default class TSConfig {
             timeout: '5000'
           }
         },
+        random: {
+          'random-bot-name': 'false'
+        },
         page: {
           'commands-prefix': '+'
         },
@@ -91,6 +94,9 @@ interface Configuration {
       radius: string
       timeout: string
     }
+  }
+  'random': {
+    'random-bot-name': string
   }
   page: {
     'commands-prefix': string

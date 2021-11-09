@@ -5,17 +5,18 @@ import { error, log } from '../utils/log.js'
 import TSConfig from './TSConfig.js'
 import initMachine from '../bot/machines/MainState.js'
 import initServer from '../page/server.js'
+import { rndName } from '../utils/functions.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
 let bot: Bot | null
 class TSBot {
   public readonly config: TSConfig = new TSConfig()
 
-  public init (): void {
+  public async init (): Promise<void> {
     try {
       this.config.init()
       bot = createBot({
-        username: this.config.config.minecraft.account.username ?? 'Bot',
+        username: ((this.config.config.random['random-bot-name'] === 'true') ? await rndName() : this.config.config.minecraft.account.username) ?? 'Bot',
         password: this.config.config.minecraft.account.password ?? '',
         host: this.config.config.minecraft.server.host ?? 'localhost',
         port: parseInt(this.config.config.minecraft.server.port) ?? 25565,
