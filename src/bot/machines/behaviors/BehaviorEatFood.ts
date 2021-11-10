@@ -19,15 +19,13 @@ export class BehaviorEatFood implements StateBehavior {
 
   async onStateEntered (): Promise<void> {
     this.isFinished = false
-    if (this.targets.item) {
-      try {
-        await this.bot.equip(this.targets.item, 'hand')
-        while (this.bot.food <= parseInt(this.config.config.minecraft['auto-eat'].at)) {
-          await this.bot.consume()
-        }
-      } catch (err) {
-        error(err)
+    try {
+      await this.bot.equip(this.targets.item, 'hand')
+      while (this.bot.food <= parseInt(this.config.config.minecraft['auto-eat'].at)) {
+        await this.bot.consume()
       }
+    } catch (err) {
+      error(err)
     }
 
     this.isFinished = true
