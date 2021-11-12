@@ -5,6 +5,7 @@ import { join } from 'path'
 import { getPortPromise } from 'portfinder'
 import { utils } from '../classes/TSBot.js'
 import { log } from '../utils/log.js'
+import { Vec3 } from 'vec3'
 const app = express()
 const serv = new http.Server(app)
 const io = new socket.Server(serv)
@@ -13,6 +14,8 @@ const dirname = import.meta.url.replace('file:///', '')
 export default async function initServer (): Promise<void> {
   // @ts-expect-error
   initServer.postChat = postChat
+  // @ts-expect-error
+  initServer.updatePos = updatePos
 
   const port = await getPortPromise()
   app.use(express.json())
@@ -34,5 +37,9 @@ export default async function initServer (): Promise<void> {
 
   function postChat (msg: string) {
     io.emit('post', msg)
+  }
+
+  function updatePos (pos: Vec3) {
+    io.emit('pos', pos)
   }
 }

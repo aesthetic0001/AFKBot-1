@@ -36,6 +36,8 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
   bot.on('whisper', (user, msg) => {
     switch (msg) {
       case 'afk':
+        // @ts-expect-error
+        bot.startPos = bot.entity.position
         transitions[1].trigger()
         break
       case 'stop':

@@ -1,6 +1,6 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior, StateMachineTargets } from 'mineflayer-statemachine'
-import Vec3 from 'vec3'
+import vec3, { Vec3 } from 'vec3'
 import TSConfig from '../../../classes/TSConfig'
 
 export class BehaviorRandomVec3 implements StateBehavior {
@@ -10,21 +10,22 @@ export class BehaviorRandomVec3 implements StateBehavior {
   public bot: Bot
   public config: TSConfig
   public targets: StateMachineTargets
-  public startPos: { x: number, y: number, z: number }
 
   constructor (bot: Bot, targets: StateMachineTargets, config: TSConfig) {
     this.bot = bot
     this.config = config
     this.targets = targets
-    this.startPos = bot.entity.position
   }
 
   onStateEntered (): void {
+    // @ts-expect-error
+    const startPos = this.bot.startPos
+
     this.isFinished = false
     const rd = parseInt(this.config.config.minecraft.afk.radius)
-    const rx =  Math.floor(Math.random() * ((this.startPos.x - rd) - (this.startPos.x + rd) + 1) + (this.startPos.x + rd))
-    const rz =  Math.floor(Math.random() * ((this.startPos.z - rd) - (this.startPos.z + rd) + 1) + (this.startPos.z + rd))
-    this.targets.position = Vec3({
+    const rx =  Math.floor(Math.random() * ((startPos.x - rd) - (startPos.x + rd) + 1) + (startPos.x + rd))
+    const rz =  Math.floor(Math.random() * ((startPos.z - rd) - (startPos.z + rd) + 1) + (startPos.z + rd))
+    this.targets.position = vec3({
       x: rx,
       y: this.bot.entity.position.y,
       z: rz

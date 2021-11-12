@@ -1,3 +1,4 @@
+import { Bot } from 'mineflayer'
 import { TSBot } from '../../classes/TSBot.js'
 import initServer from '../../page/server.js'
 import { sleep } from '../../utils/functions.js'
@@ -6,7 +7,7 @@ import { error } from '../../utils/log.js'
 const event = {
   name: 'kicked',
   once: true,
-  execute: async (tsbot: TSBot, reason: string) => {
+  execute: async (tsbot: TSBot, bot: Bot, reason: string) => {
     try {
       error(new Error(`Kicked: ${reason}`))
       // @ts-expect-error

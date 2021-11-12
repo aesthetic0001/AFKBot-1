@@ -78,7 +78,7 @@ class TSBot {
         const event = (await import(`file://${join(directory, '..', 'bot/events', eventFile)}`)).default as Event
         log(`Event ${event.name} loaded`)
         bot?.[event.once ? 'once' : 'on'](event.name as keyof BotEvents, (...args: any[]) => {
-          event.execute(this, ...args)
+          event.execute(this, bot, ...args)
         })
       }
     } catch (err) {
@@ -95,7 +95,9 @@ const utils = {
     return bot?.inventory.items()
   },
   dropItem: async (name: string) => {
-    await bot?.tossStack(bot.inventory.items().find(item => item.name === name))
+    const item = bot?.inventory.items().find(item => item.name === name)
+    if (!item) return
+    await bot?.tossStack(item)
   }
 }
 
