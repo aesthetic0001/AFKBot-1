@@ -16,6 +16,8 @@ export default async function initServer (): Promise<void> {
   initServer.postChat = postChat
   // @ts-expect-error
   initServer.updatePos = updatePos
+  // @ts-expect-error
+  initServer.updateTime = updateTime
 
   const port = await getPortPromise()
   app.use(express.json())
@@ -41,5 +43,9 @@ export default async function initServer (): Promise<void> {
 
   function updatePos (pos: Vec3) {
     io.emit('pos', pos)
+  }
+
+  function updateTime (time: number) {
+    io.emit('time', time)
   }
 }

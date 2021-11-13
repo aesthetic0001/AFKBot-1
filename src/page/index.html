@@ -23,7 +23,7 @@
       left: 0;
       height: 5%;
       width: 85%;
-      border: 1px solid white;
+      border: 2px solid white;
       border-radius: 5px;
       background-color: black;
       margin: 1%;
@@ -32,7 +32,7 @@
     }
 
     #input:focus {
-      border: 1px solid black;
+      border: 2px solid black;
       color: white;
       background-color: #0f0f0f;
       outline: none;
@@ -148,6 +148,10 @@
       <h3 id="pos-z">y: </h3>
       <h3 id="pos-y">z: </h3>
     </div>
+    <div class="info-box">
+      <h2>Time</h2>
+      <h3 id="time">time: </h3>
+    </div>
   </div>
   <ul id="messages"></ul>
   <form id="form">
@@ -164,6 +168,7 @@
     const x = document.getElementById('pos-x')
     const y = document.getElementById('pos-y')
     const z = document.getElementById('pos-z')
+    const time = document.getElementById('time')
 
     btn.addEventListener('submit', (event) => {
       event.preventDefault()
@@ -184,6 +189,10 @@
       x.innerHTML = `x: ${pos.x.toFixed(2)}`
       y.innerHTML = `y: ${pos.y.toFixed(2)}`
       z.innerHTML = `z: ${pos.z.toFixed(2)}`
+    })
+
+    socket.on('time', (t) => {
+      time.innerHTML = `time: ${t}`
     })
   </script>
 </body>
