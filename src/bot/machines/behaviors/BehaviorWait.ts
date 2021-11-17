@@ -1,5 +1,5 @@
 import { Bot } from 'mineflayer'
-import { StateBehavior, StateMachineTargets } from 'mineflayer-statemachine'
+import { StateBehavior } from 'mineflayer-statemachine'
 import TSConfig from '../../../classes/TSConfig'
 
 export class BehaviorWait implements StateBehavior {

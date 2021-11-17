@@ -177,22 +177,22 @@
       input.value = ''
     })
 
-    socket.on('post', (msg) => {
+    socket.on('post', (...args) => {
       const el = document.createElement('h3')
       el.className = 'msg'
-      el.textContent = `${new Date().getHours() + ':' + new Date().getMinutes() + ':' + (new Date().getSeconds() < 10 ? `0${new Date().getSeconds()}` : new Date().getSeconds())} ${msg}`
+      el.textContent = `${new Date().getHours() + ':' + new Date().getMinutes() + ':' + (new Date().getSeconds() < 10 ? `0${new Date().getSeconds()}` : new Date().getSeconds())} ${args[0]}`
       output.appendChild(el)
       output.scrollTop = output.scrollHeight
     })
 
-    socket.on('pos', (pos) => {
-      x.innerHTML = `x: ${pos.x.toFixed(2)}`
-      y.innerHTML = `y: ${pos.y.toFixed(2)}`
-      z.innerHTML = `z: ${pos.z.toFixed(2)}`
+    socket.on('pos', (...args) => {
+      x.innerHTML = `x: ${args[0].x.toFixed(2)}`
+      y.innerHTML = `y: ${args[0].y.toFixed(2)}`
+      z.innerHTML = `z: ${args[0].z.toFixed(2)}`
     })
 
-    socket.on('time', (t) => {
-      time.innerHTML = `time: ${t}`
+    socket.on('time', (...args) => {
+      time.innerHTML = `time: ${args[0]}`
     })
   </script>
 </body>

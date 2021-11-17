@@ -4,7 +4,7 @@ import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
 import TSConfig from './TSConfig.js'
 import initMachine from '../bot/machines/MainState.js'
-import initServer from '../page/server.js'
+import { initServer } from '../page/server.js'
 import { rndName } from '../utils/functions.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
@@ -96,7 +96,7 @@ const utils = {
   },
   dropItem: async (name: string) => {
     const item = bot?.inventory.items().find(item => item.name === name)
-    if (!item) return
+    if (item == null) return
     await bot?.tossStack(item)
   }
 }

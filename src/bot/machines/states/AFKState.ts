@@ -6,7 +6,7 @@ import { BehaviorRandomVec3 } from '../behaviors/BehaviorRandomVec3.js'
 import { BehaviorEatFood } from '../behaviors/BehaviorEatFood.js'
 import { BehaviorGetFood } from '../behaviors/BehaviorGetFood.js'
 
-export default function createAFKState (bot: Bot, targets: StateMachineTargets, config: TSConfig) {
+export default function createAFKState (bot: Bot, targets: StateMachineTargets, config: TSConfig): NestedStateMachine {
   const enter = new BehaviorIdle()
   const exit = enter
   const randomVec = new BehaviorRandomVec3(bot, targets, config)
@@ -28,7 +28,7 @@ export default function createAFKState (bot: Bot, targets: StateMachineTargets, 
     new StateTransition({
       parent: randomVec,
       child: goto,
-      shouldTransition: () => !!targets.position
+      shouldTransition: () => !(targets.position == null)
     }),
 
     new StateTransition({
@@ -52,7 +52,7 @@ export default function createAFKState (bot: Bot, targets: StateMachineTargets, 
     new StateTransition({
       parent: randomVec,
       child: exit,
-      shouldTransition: () => !targets.position
+      shouldTransition: () => targets.position == null
     }),
 
     new StateTransition({
@@ -64,7 +64,7 @@ export default function createAFKState (bot: Bot, targets: StateMachineTargets, 
     new StateTransition({
       parent: food,
       child: wait,
-      shouldTransition: () => !targets.item
+      shouldTransition: () => targets.item == null
     }),
 
     new StateTransition({
@@ -73,7 +73,7 @@ export default function createAFKState (bot: Bot, targets: StateMachineTargets, 
       shouldTransition: () => eat.isFinished
     })
   ]
-  
+
   const stateMachine = new NestedStateMachine(transitions, enter, exit)
   stateMachine.stateName = 'AFK State'
   return stateMachine

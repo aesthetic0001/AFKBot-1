@@ -1,6 +1,6 @@
 import { Bot } from 'mineflayer'
 import { TSBot } from '../../classes/TSBot.js'
-import initServer from '../../page/server.js'
+import { servUtils } from '../../page/server.js'
 import { sleep } from '../../utils/functions.js'
 import { error } from '../../utils/log.js'
 
@@ -10,8 +10,7 @@ const event = {
   execute: async (tsbot: TSBot, bot: Bot, reason: string) => {
     try {
       error(new Error(`Kicked: ${reason}`))
-      // @ts-expect-error
-      initServer.postChat(`ERROR | Kicked: ${reason}`)
+      servUtils.emitEvent('post', `ERROR | Kicked: ${reason}`)
       if (tsbot.config.config.minecraft.reconnect['on-kick'] === 'false') return process.exit(0)
       tsbot.stop()
       await sleep(parseInt(tsbot.config.config.minecraft.reconnect.timeout))
