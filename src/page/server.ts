@@ -31,9 +31,7 @@ async function initServer (): Promise<void> {
 }
 
 const servUtils = {
-  emitEvent: (event: string, ...args: any[]): void => {
-    io.emit(event, ...args)
-  }
+  emitEvent: (event: string, ...args: any[]): void => { io.emit(event, ...args) }
 }
 
 export {
