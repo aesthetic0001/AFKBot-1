@@ -34,7 +34,7 @@ async function initServer (config: TSConfig): Promise<void> {
   })
 }
 
-function handleCommand (config: TSConfig, msg: string) {
+function handleCommand (config: TSConfig, msg: string): void {
   const command = {
     cmd: msg.split(' ')[0],
     content: msg.split(' ').slice(1).join(' ')

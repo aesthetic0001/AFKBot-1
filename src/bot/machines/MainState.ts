@@ -35,7 +35,6 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
 
   bot.on('cmd' as keyof BotEvents, (...args) => {
     const cmd = args[0].cmd
-    const content = args[0].content
     switch (cmd) {
       case `${config.config.page['commands-prefix']}afk`:
         // @ts-expect-error
