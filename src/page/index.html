@@ -74,9 +74,10 @@
       left: 0;
       height: 50%;
       width: 100%;
+      overflow-y: auto;
     }
 
-    .info-box {
+    #info .info-box {
       color: white;
       float: left;
       border: 2px solid white;
@@ -86,7 +87,7 @@
       transition: all ease-in-out 200ms;
     }
 
-    .info-box:hover {
+    #info .info-box:hover {
       background-color: #afafaf;
       color: black;
     }
@@ -108,6 +109,19 @@
       color: black;
       border-left: 2px solid black;
       border-right: 2px solid black;
+    }
+
+    #inv h2 {
+      padding-bottom: 1%;
+    }
+
+    .item {
+      float: left;
+      margin: 0.5rem;
+      padding: 1rem;
+      border: 2px solid white;
+      border-radius: 10px;
+      animation: fade 500ms;
     }
 
     ::-webkit-scrollbar {
@@ -152,6 +166,14 @@
       <h2>Time</h2>
       <h3 id="time">time: </h3>
     </div>
+    <div class="info-box">
+      <h2>Health</h2>
+      <h3 id="health">health: </h3>
+      <h3 id="food">food: </h3>
+    </div>
+    <div class="info-box" id="inv">
+      <h2>Inventory</h2>
+    </div>
   </div>
   <ul id="messages"></ul>
   <form id="form">
@@ -169,6 +191,9 @@
     const y = document.getElementById('pos-y')
     const z = document.getElementById('pos-z')
     const time = document.getElementById('time')
+    const health = document.getElementById('health')
+    const food = document.getElementById('food')
+    const inv = document.getElementById('inv')
 
     btn.addEventListener('submit', (event) => {
       event.preventDefault()
@@ -193,6 +218,29 @@
 
     socket.on('time', (...args) => {
       time.innerHTML = `time: ${args[0]}`
+    })
+
+    socket.on('health', (botH, botF) => {
+      health.innerHTML = `health: ${botH}`
+      food.innerHTML = `food: ${botF}`
+    })
+
+    socket.on('inv', (items) => {
+      inv.innerHTML = `<h2>Inventory</h2>`
+      for (const item of items) {
+        const el = document.createElement('div')
+        console.log(item)
+        el.className = 'item'
+        el.innerHTML = `
+          <h3>
+            <p>display name: <em>${item.displayName}</em></p>
+            <p>name: <em>${item.name}</em></p>
+            <p>count: <em>${item.count}</em></p>
+          </h3>
+        `
+
+        inv.appendChild(el)
+      }
     })
   </script>
 </body>

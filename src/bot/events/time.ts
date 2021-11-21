@@ -1,10 +1,11 @@
 import { Bot } from 'mineflayer'
-import { TSBot } from '../../classes/TSBot.js'
+import { Event, TSBot } from '../../classes/TSBot.js'
 import { servUtils } from '../../page/server.js'
 import { error } from '../../utils/log.js'
 
-const event = {
+const event: Event = {
   name: 'time',
+  inventory: false,
   once: false,
   execute: (tsbot: TSBot, bot: Bot) => {
     try {

@@ -4,7 +4,7 @@ import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
 import TSConfig from './TSConfig.js'
 import initMachine from '../bot/machines/MainState.js'
-import { initServer } from '../page/server.js'
+import { initServer, servUtils } from '../page/server.js'
 import { rndName } from '../utils/functions.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
@@ -65,6 +65,7 @@ class TSBot {
       await this.loadListeners()
       await initServer(this.config)
       await initMachine(bot as Bot, this.config)
+      sendInitialData()
     } catch (err) {
       error(err)
     }
@@ -76,15 +77,25 @@ class TSBot {
 
       for (const eventFile of eventFiles) {
         const event = (await import(`file://${join(directory, '..', 'bot/events', eventFile)}`)).default as Event
-        log(`Event ${event.name} loaded`)
-        bot?.[event.once ? 'once' : 'on'](event.name as keyof BotEvents, (...args: any[]) => {
-          event.execute(this, bot, ...args)
-        })
+        log(`Event "${event.name}" loaded`)
+        if (!event.inventory) {
+          bot?.[event.once ? 'once' : 'on'](event.name as keyof BotEvents, (...args: any[]) => {
+            event.execute(this, bot, ...args)
+          })
+        } else {
+          bot?.inventory.on(event.name as keyof BotEvents, (...args: any[]) => {
+            event.execute(this, bot, ...args)
+          })
+        }
       }
     } catch (err) {
       error(err)
     }
   }
+}
+
+function sendInitialData (): void {
+  servUtils.emitEvent('health', bot?.health, bot?.food)
 }
 
 const utils = {
@@ -107,11 +118,13 @@ const utils = {
 
 export {
   TSBot,
-  utils
+  utils,
+  Event
 }
 
 interface Event {
   name: string
+  inventory: boolean
   once: boolean
   execute: (tsbot: TSBot, ...args: any[]) => void | Promise<void>
 }

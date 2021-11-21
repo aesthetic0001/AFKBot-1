@@ -4,12 +4,12 @@ import { servUtils } from '../../page/server.js'
 import { error } from '../../utils/log.js'
 
 const event: Event = {
-  name: 'move',
-  inventory: false,
+  name: 'updateSlot',
+  inventory: true,
   once: false,
   execute: (tsbot: TSBot, bot: Bot) => {
     try {
-      servUtils.emitEvent('pos', bot.entity.position)
+      servUtils.emitEvent('inv', bot?.inventory.items())
     } catch (err) {
       error(err)
     }

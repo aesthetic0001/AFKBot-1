@@ -1,11 +1,12 @@
 import { Bot } from 'mineflayer'
-import { TSBot } from '../../classes/TSBot.js'
+import { Event, TSBot } from '../../classes/TSBot.js'
 import { servUtils } from '../../page/server.js'
 import { sleep } from '../../utils/functions.js'
 import { error } from '../../utils/log.js'
 
-const event = {
+const event: Event = {
   name: 'kicked',
+  inventory: false,
   once: true,
   execute: async (tsbot: TSBot, bot: Bot, reason: string) => {
     try {

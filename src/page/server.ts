@@ -23,7 +23,7 @@ async function initServer (config: TSConfig): Promise<void> {
 
   io.on('connection', (socket) => {
     socket.on('msg', (msg: string) => {
-      if (msg.startsWith(config.config.page['commands-prefix'])) return handleCommand(config, msg)
+      if (msg.startsWith(config.config.page['commands-prefix'])) return handleCommand(msg)
       utils.sendChat(msg)
     })
   })
@@ -34,7 +34,7 @@ async function initServer (config: TSConfig): Promise<void> {
   })
 }
 
-function handleCommand (config: TSConfig, msg: string): void {
+function handleCommand (msg: string): void {
   const command = {
     cmd: msg.split(' ')[0],
     content: msg.split(' ').slice(1).join(' ')

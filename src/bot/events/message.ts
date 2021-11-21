@@ -1,12 +1,13 @@
 import { Bot } from 'mineflayer'
 import { ChatMessage } from 'prismarine-chat'
-import { TSBot } from '../../classes/TSBot.js'
+import { Event, TSBot } from '../../classes/TSBot.js'
 import { servUtils } from '../../page/server.js'
 import colors from '../../utils/colors.js'
 import { error, log } from '../../utils/log.js'
 
-const event = {
+const event: Event = {
   name: 'message',
+  inventory: false,
   once: false,
   execute: (tsbot: TSBot, bot: Bot, message: ChatMessage) => {
     try {
