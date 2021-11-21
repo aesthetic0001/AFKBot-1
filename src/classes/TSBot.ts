@@ -63,7 +63,7 @@ class TSBot {
       bot?.removeAllListeners('error')
       bot?.removeAllListeners('end')
       await this.loadListeners()
-      await initServer()
+      await initServer(this.config)
       await initMachine(bot as Bot, this.config)
     } catch (err) {
       error(err)
@@ -98,6 +98,10 @@ const utils = {
     const item = bot?.inventory.items().find(item => item.name === name)
     if (item == null) return
     await bot?.tossStack(item)
+  },
+  emitBotEvent: (ev: string, ...args: any) => {
+    // @ts-expect-error
+    bot?.emit(ev as keyof BotEvents, ...args)
   }
 }
 

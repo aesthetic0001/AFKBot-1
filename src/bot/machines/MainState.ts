@@ -1,4 +1,4 @@
-import { Bot } from 'mineflayer'
+import { Bot, BotEvents } from 'mineflayer'
 import { BehaviorIdle, BotStateMachine, NestedStateMachine, StateMachineTargets, StateMachineWebserver, StateTransition } from 'mineflayer-statemachine'
 import { getPortPromise } from 'portfinder'
 import TSConfig from '../../classes/TSConfig.js'
@@ -33,14 +33,16 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
     })
   ]
 
-  bot.on('whisper', (user, msg) => {
-    switch (msg) {
-      case 'afk':
+  bot.on('cmd' as keyof BotEvents, (...args) => {
+    const cmd = args[0].cmd
+    const content = args[0].content
+    switch (cmd) {
+      case `${config.config.page['commands-prefix']}afk`:
         // @ts-expect-error
         bot.startPos = bot.entity.position
         transitions[1].trigger()
         break
-      case 'stop':
+      case `${config.config.page['commands-prefix']}stop`:
         transitions[2].trigger()
         break
     }

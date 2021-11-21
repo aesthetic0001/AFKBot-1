@@ -5,12 +5,13 @@ import { join } from 'path'
 import { getPortPromise } from 'portfinder'
 import { utils } from '../classes/TSBot.js'
 import { log } from '../utils/log.js'
+import TSConfig from '../classes/TSConfig.js'
 const app = express()
 const serv = new http.Server(app)
 const io = new socket.Server(serv)
 const dirname = import.meta.url.replace('file:///', '')
 
-async function initServer (): Promise<void> {
+async function initServer (config: TSConfig): Promise<void> {
   const port = await getPortPromise()
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
@@ -21,6 +22,7 @@ async function initServer (): Promise<void> {
 
   io.on('connection', (socket) => {
     socket.on('msg', (msg: string) => {
+      if (msg.startsWith(config.config.page['commands-prefix'])) return handleCommand(config, msg)
       utils.sendChat(msg)
     })
   })
@@ -28,6 +30,15 @@ async function initServer (): Promise<void> {
   serv.listen(port, () => {
     log(`Chat server started on https://localhost:${port}`)
   })
+}
+
+function handleCommand (config: TSConfig, msg: string) {
+  const command = {
+    cmd: msg.split(' ')[0],
+    content: msg.split(' ').slice(1).join(' ')
+  }
+
+  utils.emitBotEvent('cmd', command)
 }
 
 const servUtils = {
