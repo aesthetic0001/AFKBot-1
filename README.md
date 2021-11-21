@@ -2,19 +2,11 @@
 
 It's back
 
-I'm too lazy to write a "How to Use" or "Features" section now, but feel free to read [why I deleted my older AFKBot repository](./docs/why.md)
+<br>
+<h3><a href="./docs/howto.md">How to use</a></h3>
+<h3><a href="./docs/commands.md">Commands</a></h3>
+<h3><a href="./docs/features.md">Features</a></h3>
+<h3><a href="./docs/why.md">Why a new AFKBot?</a></h3>
+<br>
 
-Revived project because I was bored
-
-<h2 align="center">About this</h2>
-
-```
-So this looks like an "about this",
-so everybody, just read it please,
-'cause we need a little biography,
-'cause it feels so empty without it.
-
-~ Eminem
-```
-
-Still in development, sorry
+Still in development, and will be, for a long time...

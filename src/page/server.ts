@@ -6,6 +6,7 @@ import { getPortPromise } from 'portfinder'
 import { utils } from '../classes/TSBot.js'
 import { log } from '../utils/log.js'
 import TSConfig from '../classes/TSConfig.js'
+import open from 'open'
 const app = express()
 const serv = new http.Server(app)
 const io = new socket.Server(serv)
@@ -28,7 +29,8 @@ async function initServer (config: TSConfig): Promise<void> {
   })
 
   serv.listen(port, () => {
-    log(`Chat server started on https://localhost:${port}`)
+    log(`Chat server started on http://localhost:${port}`)
+    if (config.config.page['auto-open'] === 'true') open(`http://localhost:${port}`)
   })
 }
 

@@ -44,7 +44,8 @@ export default class TSConfig {
           'random-bot-name': 'false'
         },
         page: {
-          'commands-prefix': '+'
+          'commands-prefix': '+',
+          'auto-open': 'true'
         },
         log: {
           clear: 'true'
@@ -100,6 +101,7 @@ interface Configuration {
   }
   page: {
     'commands-prefix': string
+    'auto-open': string
   }
   log: {
     clear: string
