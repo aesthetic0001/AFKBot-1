@@ -1,6 +1,7 @@
 <p align="center">
   <img src="https://img.shields.io/static/v1?label=REGRET&message=100%&color=black&style=for-the-badge">
   <img src="https://img.shields.io/static/v1?label=AFK&message=100%&color=blue&style=for-the-badge">
+  <img src="https://shields-io-visitor-counter.herokuapp.com/badge?page=AFKBot&style=for-the-badge&color=brightgreen&label=Visits">
 </p>
 
 <h1 align="center"><b>AFKBot?</b></h1>
