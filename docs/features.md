@@ -3,7 +3,7 @@
 - AFK-ing
 - Auto eating
 - User-friendly webpage
-- Webpage has real-time position
+- Webpage that displays real-time position
 - Chat box
 - Random bot names if specified (fetched from the Kahoot API)
 

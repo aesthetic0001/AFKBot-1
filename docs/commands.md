@@ -1,6 +1,6 @@
 <h1 align="center">Commands</h1>
 
-These commands assume you have set a prefix before them in the `config.json`
+These commands assume you have set a prefix for them in the `config.json`
 
 <h2 align="center">afk</h2>
 
