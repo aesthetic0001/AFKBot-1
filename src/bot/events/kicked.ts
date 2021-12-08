@@ -15,7 +15,7 @@ const event: Event = {
       if (tsbot.config.config.minecraft.reconnect['on-kick'] === 'false') return process.exit(0)
       tsbot.stop()
       await sleep(parseInt(tsbot.config.config.minecraft.reconnect.timeout))
-      tsbot.init()
+      await tsbot.init()
     } catch (err) {
       error(err)
     }

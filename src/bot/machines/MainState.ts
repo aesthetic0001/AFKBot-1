@@ -41,7 +41,7 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
 
   bot.on(`${config.config.page['commands-prefix']}stop` as keyof BotEvents, () => transitions[2].trigger())
   bot.on(`${config.config.page['commands-prefix']}goto` as keyof BotEvents, () => transitions[2].trigger())
-  
+
   const rootStateMachine = new NestedStateMachine(transitions, data)
   rootStateMachine.stateName = 'Main State'
 

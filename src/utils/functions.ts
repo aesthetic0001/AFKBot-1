@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 
 async function sleep (ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms))
+  return await new Promise(resolve => setTimeout(resolve, ms))
 }
 
 async function rndName (): Promise<string> {

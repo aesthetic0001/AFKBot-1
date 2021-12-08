@@ -28,9 +28,9 @@ async function initServer (config: TSConfig): Promise<void> {
     })
   })
 
-  serv.listen(port, () => {
+  serv.listen(port, async () => {
     log(`Chat server started on http://localhost:${port}`)
-    if (config.config.page['auto-open'] === 'true') open(`http://localhost:${port}`)
+    if (config.config.page['auto-open'] === 'true') await open(`http://localhost:${port}`)
   })
 }
 

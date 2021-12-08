@@ -79,12 +79,12 @@ class TSBot {
         const event = (await import(`file://${join(directory, '..', 'bot/events', eventFile)}`)).default as Event
         log(`Event "${event.name}" loaded`)
         if (!event.inventory) {
-          bot?.[event.once ? 'once' : 'on'](event.name as keyof BotEvents, (...args: any[]) => {
-            event.execute(this, bot, ...args)
+          bot?.[event.once ? 'once' : 'on'](event.name as keyof BotEvents, async (...args: any[]) => {
+            await event.execute(this, bot, ...args)
           })
         } else {
-          bot?.inventory.on(event.name as keyof BotEvents, (...args: any[]) => {
-            event.execute(this, bot, ...args)
+          bot?.inventory.on(event.name as keyof BotEvents, async (...args: any[]) => {
+            await event.execute(this, bot, ...args)
           })
         }
       }
