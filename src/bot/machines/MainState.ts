@@ -33,20 +33,15 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
     })
   ]
 
-  bot.on('cmd' as keyof BotEvents, (...args) => {
-    const cmd = args[0].cmd
-    switch (cmd) {
-      case `${config.config.page['commands-prefix']}afk`:
-        // @ts-expect-error
-        bot.startPos = bot.entity.position
-        transitions[1].trigger()
-        break
-      case `${config.config.page['commands-prefix']}stop`:
-        transitions[2].trigger()
-        break
-    }
+  bot.on(`${config.config.page['commands-prefix']}afk` as keyof BotEvents, () => {
+    // @ts-expect-error
+    bot.startPos = bot.entity.position
+    transitions[1].trigger()
   })
 
+  bot.on(`${config.config.page['commands-prefix']}stop` as keyof BotEvents, () => transitions[2].trigger())
+  bot.on(`${config.config.page['commands-prefix']}goto` as keyof BotEvents, () => transitions[2].trigger())
+  
   const rootStateMachine = new NestedStateMachine(transitions, data)
   rootStateMachine.stateName = 'Main State'
 

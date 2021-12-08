@@ -118,8 +118,8 @@ const utils = {
 
 export {
   TSBot,
-  utils,
-  Event
+  Event,
+  utils
 }
 
 interface Event {

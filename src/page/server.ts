@@ -40,7 +40,7 @@ function handleCommand (msg: string): void {
     content: msg.split(' ').slice(1).join(' ')
   }
 
-  utils.emitBotEvent('cmd', command)
+  utils.emitBotEvent(command.cmd, command)
 }
 
 const servUtils = {
