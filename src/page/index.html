@@ -210,6 +210,10 @@
       output.scrollTop = output.scrollHeight
     })
 
+    socket.on('clear', () => {
+      output.innerHTML = ''
+    })
+
     socket.on('pos', (...args) => {
       x.innerHTML = `x: ${args[0].x.toFixed(2)}`
       y.innerHTML = `y: ${args[0].y.toFixed(2)}`
