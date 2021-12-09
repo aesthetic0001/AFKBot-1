@@ -4,7 +4,7 @@
   <img src="https://shields-io-visitor-counter.herokuapp.com/badge?page=AFKBot&style=for-the-badge&color=brightgreen&label=Visits">
 </p>
 
-<h1 align="center"><b>AFKBot?</b></h1>
+<h1 align="center"><b>AFKBot</b></h1>
 
 <h3>Bot for being AFK in Minecraft</h3>
 
