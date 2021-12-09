@@ -18,10 +18,26 @@ This command will make the bot stop afk-ing
 
 `stop`
 
-<h2 align="center">go</h2>
+<h2 align="center">goto</h2>
 
 This command will make the bot go to a position
 
 *Usage*:
 
-`go [x] [y] [z]`
+`goto [x] [y] [z]`
+
+<h2 align="center">find</h2>
+
+This command will make the bot search for the specified block, and it will print the result in the webpage chatbox
+
+*Usage*:
+
+`find [name]`
+
+<h2 align="center">clear</h2>
+
+This command will clear the webpage chatbox
+
+*Usage*:
+
+`clear`
