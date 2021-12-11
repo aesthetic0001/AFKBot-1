@@ -6,10 +6,22 @@
 
 <h1 align="center"><b>AFKBot</b></h1>
 
-<h3>Bot for being AFK in Minecraft</h3>
+<p align="center">
+  A bot for Minecraft to stay AFK ingame thanks to <a href="https://github.com/PrismarineJS/mineflayer">mineflayer</a>. Mainly for Windows, not tested on other OS.
+</p>
+<p align="center">
+  Written in <a href="https://nodejs.org/">Node.JS</a> and <a href="https://www.typescriptlang.org/">TypeScript</a>
+</p>
 
+---
+
+<h3 align="center"><a href="https://github.com/amoraschi/AFKBot/releases/latest/download/AFKBot.zip">Download</a></h3>
 <h3 align="center"><a href="./docs/howto.md" target="_blank">How to use</a></h3>
 <h3 align="center"><a href="./docs/commands.md" target="_blank">Commands</a></h3>
 <h3 align="center"><a href="./docs/features.md" target="_blank">Features</a></h3>
 
-Still in development, and will be, for a long time...
+---
+
+<p align="center">
+  Still in development, and will be, for a long time...
+</p>
