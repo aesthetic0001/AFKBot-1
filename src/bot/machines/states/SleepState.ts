@@ -46,7 +46,7 @@ export default function createSleepState (bot: Bot, targets: StateMachineTargets
       parent: interact,
       child: exit,
       shouldTransition: () => interact.isFinished
-    }),
+    })
   ]
 
   const stateMachine = new NestedStateMachine(transitions, enter, exit)

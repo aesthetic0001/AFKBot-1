@@ -11,7 +11,7 @@ const event: Event = {
   name: `${config.config.page['commands-prefix']}find`,
   inventory: false,
   once: false,
-  execute: (tsbot: TSBot, bot: Bot, ...args) => {
+  execute: (tsbot: TSBot, bot: Bot, ...args: [ { cmd: string, content: string } ]) => {
     try {
       const blocks = bot.findBlocks({
         matching: (block) => block.name === args[0].content,
@@ -20,7 +20,7 @@ const event: Event = {
       })
 
       for (const block of blocks) {
-        servUtils.emitEvent('post', `Found ${args[0].content} at ${block}`)
+        servUtils.emitEvent('post', `Found ${args[0].content} at ${block.toString()}`)
       }
     } catch (err) {
       error(err)

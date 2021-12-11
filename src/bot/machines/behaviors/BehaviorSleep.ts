@@ -17,7 +17,7 @@ export class BehaviorSleep implements StateBehavior {
   async onStateEntered (): Promise<void> {
     this.isFinished = false
     try {
-      if (!this.targets.position) {
+      if (this.targets.position == null) {
         this.isFinished = true
         return
       }
@@ -26,7 +26,7 @@ export class BehaviorSleep implements StateBehavior {
         matching: (block) => block.name.includes('_bed')
       })
 
-      if (!bed) {
+      if (bed == null) {
         this.isFinished = true
         return
       }
