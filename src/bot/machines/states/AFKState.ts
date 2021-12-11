@@ -5,6 +5,7 @@ import { BehaviorWait } from '../behaviors/BehaviorWait.js'
 import { BehaviorRandomVec3 } from '../behaviors/BehaviorRandomVec3.js'
 import { BehaviorEatFood } from '../behaviors/BehaviorEatFood.js'
 import { BehaviorGetFood } from '../behaviors/BehaviorGetFood.js'
+import createSleepState from './SleepState.js'
 
 export default function createAFKState (bot: Bot, targets: StateMachineTargets, config: TSConfig): NestedStateMachine {
   const enter = new BehaviorIdle()
@@ -14,6 +15,7 @@ export default function createAFKState (bot: Bot, targets: StateMachineTargets, 
   const wait = new BehaviorWait(bot, config)
   const food = new BehaviorGetFood(bot, targets, config)
   const eat = new BehaviorEatFood(bot, targets, config)
+  const sleep = createSleepState(bot, targets)
 
   enter.stateName = 'Main State'
   goto.stateName = 'Move To'
@@ -39,8 +41,20 @@ export default function createAFKState (bot: Bot, targets: StateMachineTargets, 
 
     new StateTransition({
       parent: goto,
+      child: sleep,
+      shouldTransition: () => (goto.isFinished() && (bot.time.timeOfDay > 12600 && bot.time.timeOfDay < 23000))
+    }),
+
+    new StateTransition({
+      parent: goto,
       child: wait,
       shouldTransition: () => goto.isFinished()
+    }),
+
+    new StateTransition({
+      parent: sleep,
+      child: wait,
+      shouldTransition: () => sleep.isFinished()
     }),
 
     new StateTransition({
