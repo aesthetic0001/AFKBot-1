@@ -1,12 +1,13 @@
 {
-  "name": "bot",
+  "name": "afkbot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Bot to stay AFK in Minecraft",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "npm run build && npm start",
-    "start": "node ."
+    "start": "node .",
+    "lint": "ts-standard"
   },
   "repository": {
     "type": "git",

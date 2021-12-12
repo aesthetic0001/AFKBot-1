@@ -14,7 +14,7 @@ const event: Event = {
   execute: async (tsbot: TSBot, bot: Bot) => {
     try {
       for (const item of bot.inventory.items()) {
-        bot.tossStack(item)
+        await bot.tossStack(item)
         await sleep(250)
       }
     } catch (err) {

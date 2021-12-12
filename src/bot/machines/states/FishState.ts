@@ -22,7 +22,9 @@ export default function createFishState (bot: Bot, targets: StateMachineTargets)
       parent: enter,
       child: findWater,
       shouldTransition: () => true,
-      onTransition: () => targets.item = equipRod.findItem('fishing_rod')
+      onTransition: () => {
+        targets.item = equipRod.findItem('fishing_rod')
+      }
     }),
 
     new StateTransition({
