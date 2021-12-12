@@ -12,7 +12,7 @@ This command will make the bot start afk-ing (moving in random directions inside
 
 <h2 align="center">stop</h2>
 
-This command will make the bot stop afk-ing
+This command will make the bot stop afk-ing, and stop fishing if it is
 
 *Usage*:
 
@@ -41,3 +41,11 @@ This command will clear the webpage chatbox
 *Usage*:
 
 `clear`
+
+<h2 align="center">empty</h2>
+
+This command will make the bot empty its inventory
+
+*Usage*:
+
+`empty`

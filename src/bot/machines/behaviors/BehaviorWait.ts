@@ -1,6 +1,8 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior } from 'mineflayer-statemachine'
 import TSConfig from '../../../classes/TSConfig'
+import { sleep } from '../../../utils/functions.js'
+import { error } from '../../../utils/log.js'
 
 export class BehaviorWait implements StateBehavior {
   public active: boolean = false
@@ -15,8 +17,12 @@ export class BehaviorWait implements StateBehavior {
   }
 
   async onStateEntered (): Promise<void> {
-    this.isFinished = false
-    await new Promise(resolve => setTimeout(resolve, parseInt(this.config.config.minecraft.afk.timeout)))
-    this.isFinished = true
+    try {
+      this.isFinished = false
+      await sleep(parseInt(this.config.config.minecraft.afk.timeout))
+      this.isFinished = true
+    } catch (err) {
+      error(err)
+    }
   }
 }

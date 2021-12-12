@@ -4,12 +4,14 @@ import { getPortPromise } from 'portfinder'
 import TSConfig from '../../classes/TSConfig.js'
 import { BehaviorLoadData } from './behaviors/BehaviorLoadData.js'
 import createAFKState from './states/AFKState.js'
+import createFishState from './states/FishState.js'
 
 export default async function initMachine (bot: Bot, config: TSConfig): Promise<void> {
   const targets: StateMachineTargets = {}
   const data = new BehaviorLoadData(bot, config)
   const idle = new BehaviorIdle()
   const afkState = createAFKState(bot, targets, config)
+  const fishState = createFishState(bot, targets)
 
   idle.stateName = 'Idle'
 
@@ -27,9 +29,21 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
     }),
 
     new StateTransition({
+      parent: idle,
+      child: fishState,
+      shouldTransition: () => false
+    }),
+
+    new StateTransition({
       parent: afkState,
       child: idle,
       shouldTransition: () => false
+    }),
+
+    new StateTransition({
+      parent: fishState,
+      child: idle,
+      shouldTransition: () => fishState.isFinished()
     })
   ]
 
@@ -39,8 +53,12 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
     transitions[1].trigger()
   })
 
-  bot.on(`${config.config.page['commands-prefix']}stop` as unknown as keyof BotEvents, () => transitions[2].trigger())
-  bot.on(`${config.config.page['commands-prefix']}goto` as unknown as keyof BotEvents, () => transitions[2].trigger())
+  bot.on(`${config.config.page['commands-prefix']}goto` as unknown as keyof BotEvents, () => transitions[3].trigger())
+  bot.on(`${config.config.page['commands-prefix']}fish` as unknown as keyof BotEvents, () => transitions[2].trigger())
+  bot.on(`${config.config.page['commands-prefix']}stop` as unknown as keyof BotEvents, () => {
+    transitions[3].trigger()
+    transitions[4].trigger()
+  })
 
   const rootStateMachine = new NestedStateMachine(transitions, data)
   rootStateMachine.stateName = 'Main State'
