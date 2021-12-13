@@ -3,3 +3,4 @@ dist/
 *-lock.*
 *_accounts.*
 config.json
+.idea
