@@ -28,7 +28,7 @@ This command will make the bot go to a position
 
 <h2 align="center">find</h2>
 
-This command will make the bot search for the specified block, and it will print the result in the webpage chatbox
+This command will make the bot search for the specified block, and it will print the result in the webpage chat-box
 
 *Usage*:
 
@@ -36,7 +36,7 @@ This command will make the bot search for the specified block, and it will print
 
 <h2 align="center">clear</h2>
 
-This command will clear the webpage chatbox
+This command will clear the webpage chat-box
 
 *Usage*:
 
