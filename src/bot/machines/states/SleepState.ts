@@ -3,8 +3,7 @@ import { BehaviorFindBlock, BehaviorIdle, BehaviorMoveTo, NestedStateMachine, St
 import data from 'minecraft-data'
 import { BehaviorSleep } from '../behaviors/BehaviorSleep.js'
 
-export default function createSleepState (bot: Bot, targets: StateMachineTargets): NestedStateMachine {
-  const mcData = data(bot.version)
+export default function createSleepState (bot: Bot, targets: StateMachineTargets, mcData: data.IndexedData): NestedStateMachine {
   const enter = new BehaviorIdle()
   const exit = enter
   const findBed = new BehaviorFindBlock(bot, targets)

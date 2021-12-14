@@ -1,5 +1,6 @@
 import { Bot } from 'mineflayer'
 import { BehaviorIdle, BehaviorMoveTo, NestedStateMachine, StateMachineTargets, StateTransition } from 'mineflayer-statemachine'
+import data from 'minecraft-data'
 import TSConfig from '../../../classes/TSConfig.js'
 import { BehaviorWait } from '../behaviors/BehaviorWait.js'
 import { BehaviorRandomVec3 } from '../behaviors/BehaviorRandomVec3.js'
@@ -7,15 +8,15 @@ import { BehaviorEatFood } from '../behaviors/BehaviorEatFood.js'
 import { BehaviorGetFood } from '../behaviors/BehaviorGetFood.js'
 import createSleepState from './SleepState.js'
 
-export default function createAFKState (bot: Bot, targets: StateMachineTargets, config: TSConfig): NestedStateMachine {
+export default function createAFKState (bot: Bot, targets: StateMachineTargets, config: TSConfig, mcData: data.IndexedData): NestedStateMachine {
   const enter = new BehaviorIdle()
   const exit = enter
   const randomVec = new BehaviorRandomVec3(bot, targets, config)
   const goto = new BehaviorMoveTo(bot, targets)
   const wait = new BehaviorWait(bot, config)
-  const food = new BehaviorGetFood(bot, targets, config)
+  const food = new BehaviorGetFood(bot, targets, config, mcData)
   const eat = new BehaviorEatFood(bot, targets, config)
-  const sleep = createSleepState(bot, targets)
+  const sleep = createSleepState(bot, targets, mcData)
 
   enter.stateName = 'Main State'
   goto.stateName = 'Move To'

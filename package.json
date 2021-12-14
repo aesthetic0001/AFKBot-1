@@ -7,7 +7,8 @@
     "build": "tsc",
     "test": "npm run build && npm start",
     "start": "node .",
-    "lint": "ts-standard"
+    "lint": "ts-standard",
+    "fix": "ts-standard --fix"
   },
   "repository": {
     "type": "git",

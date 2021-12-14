@@ -3,8 +3,7 @@ import { BehaviorEquipItem, BehaviorFindBlock, BehaviorIdle, NestedStateMachine,
 import data from 'minecraft-data'
 import { BehaviorFish } from '../behaviors/BehaviorFish.js'
 
-export default function createFishState (bot: Bot, targets: StateMachineTargets): NestedStateMachine {
-  const mcData = data(bot.version)
+export default function createFishState (bot: Bot, targets: StateMachineTargets, mcData: data.IndexedData): NestedStateMachine {
   const enter = new BehaviorIdle()
   const exit = enter
   const findWater = new BehaviorFindBlock(bot, targets)

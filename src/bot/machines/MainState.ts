@@ -1,23 +1,25 @@
 import { Bot, BotEvents } from 'mineflayer'
 import { BehaviorIdle, BotStateMachine, NestedStateMachine, StateMachineTargets, StateMachineWebserver, StateTransition } from 'mineflayer-statemachine'
 import { getPortPromise } from 'portfinder'
+import data from 'minecraft-data'
 import TSConfig from '../../classes/TSConfig.js'
 import { BehaviorLoadData } from './behaviors/BehaviorLoadData.js'
 import createAFKState from './states/AFKState.js'
 import createFishState from './states/FishState.js'
 
 export default async function initMachine (bot: Bot, config: TSConfig): Promise<void> {
+  const mcData = data(bot.version)
   const targets: StateMachineTargets = {}
-  const data = new BehaviorLoadData(bot, config)
+  const load = new BehaviorLoadData(bot, config)
   const idle = new BehaviorIdle()
-  const afkState = createAFKState(bot, targets, config)
-  const fishState = createFishState(bot, targets)
+  const afkState = createAFKState(bot, targets, config, mcData)
+  const fishState = createFishState(bot, targets, mcData)
 
   idle.stateName = 'Idle'
 
   const transitions: StateTransition[] = [
     new StateTransition({
-      parent: data,
+      parent: load,
       child: idle,
       shouldTransition: () => true
     }),
@@ -60,7 +62,7 @@ export default async function initMachine (bot: Bot, config: TSConfig): Promise<
     transitions[4].trigger()
   })
 
-  const rootStateMachine = new NestedStateMachine(transitions, data)
+  const rootStateMachine = new NestedStateMachine(transitions, load)
   rootStateMachine.stateName = 'Main State'
 
   const botStateMachine = new BotStateMachine(bot, rootStateMachine)
