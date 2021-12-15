@@ -2,6 +2,7 @@ import { Bot } from 'mineflayer'
 import { StateBehavior } from 'mineflayer-statemachine'
 import { pathfinder } from 'mineflayer-pathfinder'
 import TSConfig from '../../../classes/TSConfig'
+import { newUpdate } from '../../../utils/functions.js'
 
 export class BehaviorLoadData implements StateBehavior {
   public active: boolean = false
@@ -16,6 +17,7 @@ export class BehaviorLoadData implements StateBehavior {
   }
 
   onStateEntered (): void {
+    if (this.config.config.random['check-updates'] === 'true') newUpdate()
     this.bot.loadPlugins([
       pathfinder
     ])

@@ -41,7 +41,8 @@ export default class TSConfig {
           }
         },
         random: {
-          'random-bot-name': 'false'
+          'random-bot-name': 'false',
+          'check-updates': 'true'
         },
         page: {
           'commands-prefix': '+',
@@ -98,6 +99,7 @@ interface Configuration {
   }
   'random': {
     'random-bot-name': string
+    'check-updates': string
   }
   page: {
     'commands-prefix': string
