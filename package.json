@@ -1,6 +1,6 @@
 {
   "name": "afkbot",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Bot to stay AFK in Minecraft",
   "main": "dist/index.js",
   "scripts": {
