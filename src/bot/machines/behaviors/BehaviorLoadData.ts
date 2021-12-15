@@ -1,7 +1,7 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior } from 'mineflayer-statemachine'
 import { pathfinder } from 'mineflayer-pathfinder'
-import TSConfig from '../../../classes/TSConfig'
+import TSConfig from '../../../utils/config'
 import { newUpdate } from '../../../utils/functions.js'
 
 export class BehaviorLoadData implements StateBehavior {

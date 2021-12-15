@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs'
-import { error, log } from '../utils/log.js'
+import { error, log } from './log.js'
 
 export default class TSConfig {
   public config: Configuration

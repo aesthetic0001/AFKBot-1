@@ -1,6 +1,6 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior, StateMachineTargets } from 'mineflayer-statemachine'
-import TSConfig from '../../../classes/TSConfig.js'
+import TSConfig from '../../../utils/config.js'
 import { error } from '../../../utils/log.js'
 
 export class BehaviorEatFood implements StateBehavior {

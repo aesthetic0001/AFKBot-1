@@ -1,7 +1,7 @@
 import { Bot } from 'mineflayer'
 import { BehaviorIdle, BehaviorMoveTo, NestedStateMachine, StateMachineTargets, StateTransition } from 'mineflayer-statemachine'
 import data from 'minecraft-data'
-import TSConfig from '../../../classes/TSConfig.js'
+import TSConfig from '../../../utils/config.js'
 import { BehaviorWait } from '../behaviors/BehaviorWait.js'
 import { BehaviorRandomVec3 } from '../behaviors/BehaviorRandomVec3.js'
 import { BehaviorEatFood } from '../behaviors/BehaviorEatFood.js'

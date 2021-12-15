@@ -3,9 +3,9 @@ import http from 'http'
 import * as socket from 'socket.io'
 import { join } from 'path'
 import { getPortPromise } from 'portfinder'
-import { utils } from '../classes/TSBot.js'
+import { utils } from '../bot/bot.js'
 import { log } from '../utils/log.js'
-import TSConfig from '../classes/TSConfig.js'
+import TSConfig from '../utils/config.js'
 import open from 'open'
 const app = express()
 const serv = new http.Server(app)

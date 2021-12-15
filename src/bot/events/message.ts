@@ -1,6 +1,6 @@
 import { Bot } from 'mineflayer'
 import { ChatMessage } from 'prismarine-chat'
-import { Event, TSBot } from '../../classes/TSBot.js'
+import { Event, TSBot } from '../bot.js'
 import { servUtils } from '../../page/server.js'
 import colors from '../../utils/colors.js'
 import { error, log } from '../../utils/log.js'

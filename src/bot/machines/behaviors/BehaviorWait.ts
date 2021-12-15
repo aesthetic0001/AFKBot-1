@@ -1,6 +1,6 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior } from 'mineflayer-statemachine'
-import TSConfig from '../../../classes/TSConfig'
+import TSConfig from '../../../utils/config'
 import { sleep } from '../../../utils/functions.js'
 import { error } from '../../../utils/log.js'
 

@@ -1,6 +1,6 @@
 import { Bot } from 'mineflayer'
-import { Event, TSBot } from '../../classes/TSBot.js'
-import TSConfig from '../../classes/TSConfig.js'
+import { Event, TSBot } from '../bot.js'
+import TSConfig from '../../utils/config.js'
 import { sleep } from '../../utils/functions.js'
 import { error } from '../../utils/log.js'
 

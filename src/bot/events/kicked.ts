@@ -1,5 +1,5 @@
 import { Bot } from 'mineflayer'
-import { Event, TSBot } from '../../classes/TSBot.js'
+import { Event, TSBot } from '../bot.js'
 import { servUtils } from '../../page/server.js'
 import { sleep } from '../../utils/functions.js'
 import { error } from '../../utils/log.js'

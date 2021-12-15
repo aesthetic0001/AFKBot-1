@@ -1,7 +1,7 @@
 import { Bot } from 'mineflayer'
 import path from 'mineflayer-pathfinder'
-import { Event, TSBot } from '../../classes/TSBot.js'
-import TSConfig from '../../classes/TSConfig.js'
+import { Event, TSBot } from '../bot.js'
+import TSConfig from '../../utils/config.js'
 import { error } from '../../utils/log.js'
 
 const config = new TSConfig()

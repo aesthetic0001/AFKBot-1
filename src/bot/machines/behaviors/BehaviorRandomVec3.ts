@@ -1,7 +1,7 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior, StateMachineTargets } from 'mineflayer-statemachine'
 import vec3, { Vec3 } from 'vec3'
-import TSConfig from '../../../classes/TSConfig'
+import TSConfig from '../../../utils/config'
 
 export class BehaviorRandomVec3 implements StateBehavior {
   public active: boolean = false

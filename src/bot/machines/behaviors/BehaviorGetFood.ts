@@ -1,7 +1,7 @@
 import { Bot } from 'mineflayer'
 import { StateBehavior, StateMachineTargets } from 'mineflayer-statemachine'
 import data from 'minecraft-data'
-import TSConfig from '../../../classes/TSConfig'
+import TSConfig from '../../../utils/config'
 
 export class BehaviorGetFood implements StateBehavior {
   public active: boolean = false

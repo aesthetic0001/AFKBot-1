@@ -2,8 +2,8 @@ import { Bot, BotEvents, createBot } from 'mineflayer'
 import { readdirSync } from 'fs'
 import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
-import TSConfig from './TSConfig.js'
-import initMachine from '../bot/machines/MainState.js'
+import TSConfig from '../utils/config.js'
+import initMachine from './machines/MainState.js'
 import { initServer, servUtils } from '../page/server.js'
 import { rndName } from '../utils/functions.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
@@ -74,10 +74,10 @@ class TSBot {
   private async loadListeners (): Promise<void> {
     try {
       const eventFiles = readdirSync(join(directory, '..', 'bot/events'))
+      log(`Loading ${eventFiles.length} events`)
 
       for (const eventFile of eventFiles) {
         const event = (await import(`file://${join(directory, '..', 'bot/events', eventFile)}`)).default as Event
-        log(`Event "${event.name}" loaded`)
         if (!event.inventory) {
           bot?.[event.once ? 'once' : 'on'](event.name as keyof BotEvents, async (...args: any[]) => {
             await event.execute(this, bot, ...args)
