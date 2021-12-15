@@ -10,6 +10,8 @@ const event: Event = {
   execute: (tsbot: TSBot, bot: Bot) => {
     try {
       servUtils.emitEvent('time', bot.time.timeOfDay)
+      servUtils.emitEvent('players', bot.players)
+      servUtils.emitEvent('health', bot?.health, bot?.food)
     } catch (err) {
       error(err)
     }

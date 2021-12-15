@@ -171,6 +171,11 @@
       <h3 id="health">health: </h3>
       <h3 id="food">food: </h3>
     </div>
+    <div class="info-box">
+      <h2>Players</h2>
+      <h3 id="players">online: </h3>
+      <h3 id="rendered">rendered: </h3>
+    </div>
     <div class="info-box" id="inv">
       <h2>Inventory</h2>
     </div>
@@ -193,6 +198,8 @@
     const time = document.getElementById('time')
     const health = document.getElementById('health')
     const food = document.getElementById('food')
+    const online = document.getElementById('players')
+    const rendered = document.getElementById('rendered')
     const inv = document.getElementById('inv')
 
     btn.addEventListener('submit', (event) => {
@@ -227,6 +234,11 @@
     socket.on('health', (botH, botF) => {
       health.innerHTML = `health: ${botH}`
       food.innerHTML = `food: ${botF}`
+    })
+
+    socket.on('players', (players) => {
+      online.innerHTML = `online: ${Object.values(players).length}`
+      rendered.innerHTML = `rendered: ${Object.values(players).filter(player => player.entity && player.entity.position).length}`
     })
 
     socket.on('inv', (items) => {

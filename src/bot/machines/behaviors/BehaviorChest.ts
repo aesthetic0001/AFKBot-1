@@ -1,4 +1,4 @@
-import { Bot, Chest } from 'mineflayer'
+import { Bot } from 'mineflayer'
 import { StateBehavior, StateMachineTargets } from 'mineflayer-statemachine'
 import { sleep } from '../../../utils/functions.js'
 import { error } from '../../../utils/log.js'

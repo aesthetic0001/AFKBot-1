@@ -4,7 +4,7 @@ import { dirname, join } from 'path'
 import { error, log } from '../utils/log.js'
 import TSConfig from '../utils/config.js'
 import initMachine from './machines/MainState.js'
-import { initServer, servUtils } from '../page/server.js'
+import { initServer } from '../page/server.js'
 import { rndName } from '../utils/functions.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
@@ -65,7 +65,6 @@ class TSBot {
       await this.loadListeners()
       await initServer(this.config)
       await initMachine(bot as Bot, this.config)
-      sendInitialData()
     } catch (err) {
       error(err)
     }
@@ -92,10 +91,6 @@ class TSBot {
       error(err)
     }
   }
-}
-
-function sendInitialData (): void {
-  servUtils.emitEvent('health', bot?.health, bot?.food)
 }
 
 const utils = {
