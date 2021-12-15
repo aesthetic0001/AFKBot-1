@@ -14,7 +14,7 @@ async function newUpdate (): Promise<void> {
   const res = JSON.parse(await (await fetch('https://api.github.com/repos/amoraschi/AFKBot/releases')).text())
   const pkg = JSON.parse(readFileSync('./package.json').toString())
   if (parseInt(res[0].tag_name.replace(/\./g, '')) > parseInt(pkg.version.replace(/\./g, ''))) {
-    log(`Found new version: ${res[0].tag_name} (https://github.com/amoraschi/AFKBot/releases/latest)
+    log(`Found new version: ${res[0].tag_name as string} (https://github.com/amoraschi/AFKBot/releases/latest)
     You can download it directly here: https://github.com/amoraschi/AFKBot/releases/latest/download/AFKBot.zip`)
   }
 }
