@@ -26,6 +26,9 @@
     "url": "https://github.com/amoraschi/Bot/issues"
   },
   "homepage": "https://github.com/amoraschi/Bot#readme",
+  "engines": {
+    "node": ">=14"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "mineflayer": "^3.11.2",
