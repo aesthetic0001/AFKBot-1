@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/static/v1?label=REGRET&message=100%&color=black&style=for-the-badge">
   <img src="https://img.shields.io/static/v1?label=AFK&message=100%&color=blue&style=for-the-badge">
   <img src="https://shields-io-visitor-counter.herokuapp.com/badge?page=AFKBot&style=for-the-badge&color=brightgreen&label=Visits">
-  <a href="https://discord.gg/6gpEsTgRYM"><img src="https://img.shields.io/badge/DISCORD-Support-7289da?style=for-the-badge" alt="amoraschi"></a>
+  <a href="https://discord.gg/Ad5cmz7Hs2"><img src="https://img.shields.io/badge/DISCORD-Support-7289da?style=for-the-badge" alt="amoraschi"></a>
 </p>
 
 <h1 align="center"><b>AFKBot</b></h1>
