@@ -1,4 +1,4 @@
-import { Bot } from 'mineflayer'
+import { Bot, Chest } from 'mineflayer'
 import { StateBehavior, StateMachineTargets } from 'mineflayer-statemachine'
 import { sleep } from '../../../utils/functions.js'
 import { error } from '../../../utils/log.js'
@@ -29,7 +29,7 @@ export class BehaviorChest implements StateBehavior {
         return
       }
 
-      const chest = await this.bot.openChest(block)
+      const chest = await this.bot.openContainer(block) as Chest
       for (const item of this.bot.inventory.items()) {
         if (this.bot.heldItem === item) continue
         await chest.deposit(item.type, null, item.count)
