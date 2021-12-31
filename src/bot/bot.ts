@@ -105,8 +105,7 @@ const utils = {
     if (item == null) return
     await bot?.tossStack(item)
   },
-  emitBotEvent: (ev: string, ...args: any) => {
-    // @ts-expect-error
+  emitBotEvent: (ev: string, ...args: never[]) => {
     bot?.emit(ev as keyof BotEvents, ...args)
   }
 }
