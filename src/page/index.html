@@ -212,7 +212,7 @@
     socket.on('post', (...args) => {
       const el = document.createElement('h3')
       el.className = 'msg'
-      el.textContent = `${new Date().getHours() + ':' + new Date().getMinutes() + ':' + (new Date().getSeconds() < 10 ? `0${new Date().getSeconds()}` : new Date().getSeconds())} ${args[0]}`
+      el.textContent = `${new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()} ${args[0]}`
       output.appendChild(el)
       output.scrollTop = output.scrollHeight
     })
