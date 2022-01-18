@@ -9,8 +9,9 @@ const event: Event = {
   name: 'message',
   inventory: false,
   once: false,
-  execute: (tsbot: TSBot, bot: Bot, message: ChatMessage) => {
+  execute: (tsbot: TSBot, bot: Bot, message: ChatMessage, position: string) => {
     try {
+      if (position === 'game_info') return
       log(`${colors.fg_green}> CHAT <${colors.reset} ${message.toString()}`)
       servUtils.emitEvent('post', message.toString())
     } catch (err) {
