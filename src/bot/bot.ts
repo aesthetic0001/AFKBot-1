@@ -73,7 +73,7 @@ class TSBot {
     process.exit(0)
   }
 
-  private readonly clearListeners = async (): Promise<void> => {
+  private async clearListeners (): Promise<void> {
     try {
       if (this.config.config.log.clear === 'true') console.clear()
       await bot?.waitForChunksToLoad()
@@ -123,7 +123,7 @@ const utils = {
     if (item == null) return
     await bot?.tossStack(item)
   },
-  emitBotEvent: (ev: string, ...args: { cmd: string, content: string }[]) => {
+  emitBotEvent: (ev: string, ...args: Array<{ cmd: string, content: string }>) => {
     bot?.emit(ev as keyof BotEvents, ...args as never[])
   }
 }
