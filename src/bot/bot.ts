@@ -6,6 +6,7 @@ import TSConfig from '../utils/config.js'
 import initMachine from './machines/MainState.js'
 import { initServer } from '../page/server.js'
 import { rndName } from '../utils/functions.js'
+import { getAlt } from '../utils/easymc.js'
 const directory = dirname(new URL(import.meta.url).pathname).slice(1, dirname(new URL(import.meta.url).pathname).length)
 
 let bot: Bot | null
@@ -15,13 +16,30 @@ class TSBot {
   public async init (): Promise<void> {
     try {
       this.config.init()
-      bot = createBot({
-        username: ((this.config.config.random['random-bot-name'] === 'true') ? await rndName() : this.config.config.minecraft.account.username) ?? 'Bot',
-        password: this.config.config.minecraft.account.password ?? '',
-        host: this.config.config.minecraft.server.host ?? 'localhost',
-        port: parseInt(this.config.config.minecraft.server.port) ?? 25565,
-        auth: (this.config.config.minecraft.account.auth.includes('mojang') ? 'mojang' : 'microsoft')
-      })
+
+      if (this.config.config.minecraft.easymc.enable === 'true') {
+        const alt = await getAlt(this.config.config.minecraft.easymc.token)
+          .catch(err => {
+            error(new Error(`There was an error fetching EasyMC's Alt: ${err}`))
+            process.exit(0)
+          })
+
+        bot = createBot({
+          accessToken: alt.accessToken,
+          clientToken: alt.clientToken,
+          username: alt.selectedProfile.name,
+          host: this.config.config.minecraft.server.host ?? 'localhost',
+          port: parseInt(this.config.config.minecraft.server.port) ?? 25565
+        })
+      } else {
+        bot = createBot({
+          username: ((this.config.config.random['random-bot-name'] === 'true') ? await rndName() : this.config.config.minecraft.account.username) ?? 'Bot',
+          password: this.config.config.minecraft.account.password ?? '',
+          host: this.config.config.minecraft.server.host ?? 'localhost',
+          port: parseInt(this.config.config.minecraft.server.port) ?? 25565,
+          auth: (this.config.config.minecraft.account.auth.includes('mojang') ? 'mojang' : 'microsoft')
+        })
+      }
 
       bot.on('error', (Error) => this.errorOut(Error.message))
       bot.on('kicked', (Reason) => this.errorOut(Reason))

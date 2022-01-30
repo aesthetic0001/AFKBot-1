@@ -27,3 +27,13 @@ Open the folder, and type `cmd` in the address bar, this will open a terminal al
 Now we have to install the dependencies, type `npm install` in the terminal. This should take a while, but it should install all dependencies. `npm install` only has to be typed once, in the next runs, you can just type `npm start` directly.
 
 Now you just have to type `npm start` to start the program.
+
+<h2 align="center">5. How to use EasyMC's feature</h2>
+
+First, get an account token from its [homepage](https://easymc.io/get).
+
+Then, head to the `config.json` file, change `"enable"`'s value to `"true"`, and paste the token in the `"token"` value field.
+
+Then you can start the program, and it will use the EasyMC Alt instead of the normal credentials.
+
+These tokens are single use, so if you want to restart the program, you will have to head to this [page](https://easymc.io/renew) to renew the token.

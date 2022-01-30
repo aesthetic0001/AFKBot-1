@@ -18,6 +18,10 @@ export default class TSConfig {
             password: '',
             auth: 'mojang'
           },
+          easymc: {
+            enable: 'false',
+            token: ''
+          },
           server: {
             host: 'localhost',
             port: ''
@@ -79,6 +83,10 @@ interface Configuration {
       username: string
       password: string
       auth: string
+    }
+    easymc: {
+      enable: string
+      token: string
     }
     server: {
       host: string

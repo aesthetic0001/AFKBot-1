@@ -9,6 +9,7 @@
 - Can be told to go to a position
 - Random bot names if specified (fetched from the Kahoot API)
 - 1.8 to 1.17 support
+- EasyMC support
 - Online/Cracked mode support
 
 More to come...
