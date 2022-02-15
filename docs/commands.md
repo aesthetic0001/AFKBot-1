@@ -10,6 +10,14 @@ This command will make the bot start afk-ing (moving in random directions inside
 
 `afk`
 
+<h2 align="center">fish</h2>
+
+This command will make the bot start fishing, if it has a rod and can find water around it
+
+*Usage*:
+
+`fish`
+
 <h2 align="center">stop</h2>
 
 This command will make the bot stop afk-ing, and stop fishing if it is
